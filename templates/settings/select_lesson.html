@@ -1,0 +1,21 @@
+{% extends 'settings/base.html' %}
+
+{% block content %}
+
+<div style='height:200px'>
+<form action = "{% url 'text' %}" method="post" style='float:left;width:100%;text-align:center'>
+    {% csrf_token %}
+<select name='lesson' style='border-radius:10px;display:block;text-size:40px;margin:auto; width:80%;margin-top:30px; text-align:center'>
+    {% for item in data %}
+        <option value="{{item.pk}}">{{item.name}}</option>
+    {% endfor %}
+</select><br>
+{% if user.is_authenticated %}
+<a href="#" style='border:1px solid brown;padding:20px;margin:20px; border-radius:10px'>Halanlaryma goş</a><br>
+{% endif %}
+<br>
+<input type="submit" value="Ugrat" style='width:60%; margin:auto;display:block; border-radius:10px' >
+</form>
+</div>
+
+{% endblock content %}

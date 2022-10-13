@@ -1,0 +1,51 @@
+{% extends 'lesson/base.html' %}
+
+{% block content %}
+
+<div><h2 style='width:auto;display:inline;float:left;font-size:30px'>{{lesson.name}}</h2><p style='float:right'> Video sapaklary  <a href="{{lesson.link1}}">{{lesson.word1}}</a>   <a href="lesson.link2">{{lesson.word2}}</a>   <a href="{{lesson.link3}}">{{lesson.word3}}</a></p><br><br><br></div>
+
+<script type="text/javascript">
+    id = []; turkmenceler = []; inlisceler = [];
+</script>
+
+<script type="text/javascript">
+    {% for item in text %}
+        id.push(parseInt("{{item.pk}}"));
+        turkmenceler.push("{{item.turkmen}}");
+        inlisceler.push("{{item.another_lang}}");
+    {% endfor %}
+</script>
+
+{% for item in text %}
+        <li>
+        <div style='border:1px solid black;width:93%;padding:10px;margin:20px;margin-top:-5px; border-radius:20px;height:auto;text-size:16px; overflow:hidden'>
+        <img src="{{item.image_another.url}}" class="{{item.pk}}" onclick="salam({{item.pk}})" width=40% style='float:right;height: 40%;'>
+        <p>{{item.another_lang}}</p><br><br>
+        <p class="{{item.pk}}"></p><br><br>
+        <audio id="{{item.pk}}"><source src={{item.audio_another.url}}>Bolanok</audio>
+     
+        </div>
+        <button id='button' class="button {{item.pk}}" style='border-radius:10px; height:30px; line-height:0px;margin:auto; margin-top:-10px; margin-bottom:20px; width:80%;' onclick="uytget({{item.pk}})">Terjimesini gorkez</button>
+        </li>
+{% endfor %}
+
+</ul>
+
+    <script>
+    function salam(n){
+    var y=document.getElementById(n);
+    y.load();
+    y.play();
+}
+console.log(turkmenceler);
+function uytget(n){
+    var elements=document.getElementsByClassName(n);
+    if(elements[1].innerHTML==''){
+        elements[1].innerHTML=turkmenceler[id.indexOf(n)];
+    }else{
+        elements[1].innerHTML='';
+}
+}
+    </script>
+    
+{% endblock content %}

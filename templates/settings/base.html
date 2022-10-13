@@ -1,0 +1,219 @@
+{% load static %}
+<!DOCTYPE html>
+<!-- saved from url=(0034)https://www.awwwards.com/websites/ -->
+<html class="no-js" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="referrer" content="origin-when-cross-origin">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="images/favicon.png">
+    <meta name="description" content="Discover the best website designs of the world. Awwwards recognizes the talent and effort of the best designers, web developers and digital agencies.">
+        <meta name="theme-color" content="#3ea094">
+        <title>    Ýakyn ýol
+</title>
+<style> table, th, td{
+     border:1px solid black;
+     padding:10px;
+ }</style>
+        <link rel='stylesheet' href="{% static 'css/login-style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/mobile-style.css' %}">
+    </script>
+    <!-- End Google Tag Manager -->
+
+<body class="">
+
+<div class="wrapper ">
+            
+<nav class="nav-main" id="nav-main">
+    <div class="top">
+        <div class="header">
+            <div class="pull-left">
+                <span class="link-underlined js-nav-menu" data-menu-id="menu-lang">English</span>
+            </div>
+            <div class="pull-right">
+                <div class="bt-close js-close-menu text-uppercase" onclick='closeMenu()'>close</div>
+            </div>
+        </div>
+        <ul class="menu active" data-menu-name="English" data-menu-id="menu-lang" id="menu-main">
+
+            <li class="active"><a href="{% url 'about' %}" class="item">Saýdyň ulanylyşy</a></li>
+            <li><a href="{% url 'login' %}" class="item">Sazlamalar</a></li>
+            <li><a href="{% url 'text' %}" class="item">Sapak</a></li>
+            <li><a href="jan.php" class="item">Arakesme</a></li>
+            <li><a href="mugallymlar.php" class="item">Bildirişler</a></li>
+            <li>
+                <a href="#" class="item">
+                    (Goşmaça)</a>
+            </li>
+            
+        </ul>
+        <ul class="menu" data-menu-name="BACK" data-menu-id="menu-main" id="menu-lang" onclick="menuLang()">
+
+                            <li lang="en" class="js-change-locale active" data-locale="en">
+                    <span class="item">
+                        Turkmen
+                                                    <span class="bt-check active">
+                                <span class="bt-content"></span>
+                            </span>
+                                            </span>
+                </li>
+            <li lang="pt"><span class="item">English <span class="soon">Soon!</span></span></li>
+            <li lang="fr"><span class="item">Russian <span class="soon">Potom!</span></span></li>
+        </ul>
+    </div>
+       
+    </nav>
+
+                    <header id="header">
+        <div class="header-main">
+            <div class="box-left" onclick="openMenu()">
+                <div class="item bt-menu js-nav-main" data-menu-id="menu-main">
+                    <div class="ico-menu">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
+                    <span class="has-tablet">MENU</span>
+                </div>
+            </div>
+            <div class="box-right" onclick='closeMenu()'>
+                {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}" id='registerhref'>Logout      </a>
+                {% else %}
+                <a href="{% url 'login' %}" id='registerhref'>Register </a>
+                {% endif %}
+
+            <div class="item login">
+                {% if user.is_authenticated %}
+                    <strong><a class='text-black' href="{% url 'logout' %}">Log Out</a></strong>
+                {% else %}
+                    <strong><a class='text-black' href="{% url 'login' %}">Register / log in</a></strong>
+                {% endif %}
+        
+    </div>
+
+                
+     
+                            </div>
+            <div class="logo-header" onclick='closeMenu()'>
+                <img src="images/logo.png" alt="Bolanok" style='width:300px; height:90px;position:relative;top:-35px;'>
+                                                
+            </div>
+        </div>
+    </header>
+                
+
+    <script>
+            durum=1;
+        var styleElem = document.head.appendChild(document.createElement("style"));
+        function openMenu(){
+        var d = document.getElementsByClassName('wrapper');
+        d[0].style.transform='TranslateX(320px)';
+        d[0].style.position='fixed';
+        styleElem.innerHTML = ".wrapper:before {visibility:visible;opacity:1;}";
+        // d[0].onclick = closeMenu;
+        }
+        function closeMenu() {
+        var d = document.getElementsByClassName('wrapper');
+        d[0].style.position='relative';
+        styleElem.innerHTML = ".wrapper:before {visibility:hidden;opacity:0;}";
+        d[0].style.transform='';  
+        }
+        function menuLang() {
+            var button = document.getElementsByClassName('link-underlined js-nav-menu');
+            var links = document.getElementById('menu-main');
+            var langs = document.getElementById('menu-lang');
+            if(button[0].innerHTML=='English'){
+                links.classList.remove('active');
+                langs.classList.add('active');
+                button[0].innerHTML='BACK';
+            }else{
+                links.classList.add('active');
+                langs.classList.remove('active');
+                button[0].innerHTML='English';
+            }
+        }
+        function sayla(){
+            console.log(durum)
+            openMenu()
+            // if(durum%2==1){
+            //     closeMenu();
+                
+            // }else{
+            //     openMenu()
+            // };
+            durum=durum+1;
+        }
+        </script>
+
+<div class="box-filters fixed seo" id="box-filters-fixed" onclick='closeMenu()'>
+    <div class="container">
+        <div class="box-left">
+            <ul class="menu-filters js-filters-new">
+                {% if user.is_authenticated %}
+                <li data-name="filter.navigation_section.awards" class="item dropdown" data-order="name">
+                    <a href="{% url 'profile' %}"><div class="leftbar" >Profil</div></a>                                   
+                </li>
+                {% else %}
+                <li data-name="filter.navigation_section.awards" class="item dropdown" data-order="name">
+                    <a href="{% url 'login' %}"><div class="leftbar" >Login</div></a>                                   
+                </li>
+                {% endif %}
+                <li data-name="filter.navigation_section.awards" class="item dropdown" data-order="name">
+                    <a href="{% url 'choose_lesson' %}"><div class="leftbar" >Sapak sayla</div></a>                                   
+                </li>    
+            </ul>
+        </div>
+            </div>
+    </div>
+            <section id="content" class="" onclick="closeMenu()">
+            <div style='float:left; width:80%'>
+<div class="container2" style="background-color: #c2cbed;
+            width: 100%;
+            height: auto;
+            position: relative; 
+            margin:auto;
+            top:0vh;
+            padding:20px;
+            border-radius: 25px;
+            box-shadow: 0 0 10px black;
+            float:center;
+            text-align:center;
+            ">
+
+{% block content %}
+
+{% endblock content %}
+
+</div>
+</div>
+
+<div style='float:right; width:20%; border-left:1px solid grey'>
+
+<a href='#'>
+
+  <img src='$surat' alt=$surat width=100% height=200px></a>
+
+</div></div>
+
+</section>
+<footer id="footer" style='height:30px'>
+    <div class="box-top">
+        <div class="inner">
+            <div class="box-left">
+                <p class="follow">
+                    <strong>Follow us</strong>
+                    <a class="text-black" rel="noopener" href="#">Facebook</a>
+                    <a class="text-black" rel="noopener" href="#">Youtube</a>
+                    <a class="text-black" rel="noopener" href="#">Instagram</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</footer>
+
+</body>
+
+</html>

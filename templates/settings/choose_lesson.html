@@ -1,0 +1,26 @@
+{% extends 'settings/base.html' %}
+
+{% block content %}
+
+<div style='height:200px'>
+<form method="POST" style='float:left;width:100%;text-align:center'>
+{% csrf_token %}
+<input type='hidden' name='type' value='1' >
+<span style='font-size:20px'>Bilýän diliňizi saýlaň</span><br>
+<select name="language" style='border-radius:10px; text-align:center; width:70%; margin:auto'>
+<option value="turkmen">Türkmen dili</option>
+</select>
+
+        <span style='font-size:20px'>Öwrenjek dilinizi saýlaň</span><br>
+        <select name='category' style='border-radius:10px; text-align:center; width:70%; margin:auto'>
+        <option value='english'>Iňlis dili</option>
+        <option value='russian'>Rus dili</option>
+        <option value='turkish'>Türk dili</option>
+        <option value='chinese'>Hytaý dili</option>
+        </select>
+        <input type='submit' value='Ugrat'  style='width:60%; margin:auto;display:block; border-radius:10px'>
+        </form>
+</div>
+    
+
+{% endblock content %}

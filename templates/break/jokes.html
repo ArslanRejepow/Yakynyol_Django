@@ -1,0 +1,199 @@
+<style>
+  .sayfala{
+    font: 12px tahoma;
+    margin-bottom:10px;
+    display:inline;
+    width:5%;
+    margin-top: 20px;
+    padding:4px 9px;
+}
+
+.img{
+  width:40%;
+  height:250px;
+}
+
+@media only screen and (max-width: 768px){
+  .img{
+    width: 100%;
+  }
+}
+
+</style>
+
+{% extends 'break/base.html' %}
+
+{% block content %}
+
+
+
+<ul style="display:flex; flex-direction:column">
+
+    {% for item in contents.object_list %}
+
+        <div id="{{item.pk}}" style='border:1px solid black;margin-bottom:20px;border-radius:5px;padding:5px;height:200px;text-size:16px; overflow:hidden'>
+        <li style='text-align:center'>
+        <img src="{{item.image_1.url}}" width=100px height=100px class="{{item.pk}}" style='float:right'>
+        
+        <div class="{{item.pk}}" style='display:none'>
+        <div class='slideshow-container'>
+
+<div class="fade {{item.pk}}">
+  <div class='numbertext'>1 / 3</div>
+  <img src="{{item.image_1.url}}" class='img'>
+</div>
+<div id="myModal" class="modal">
+
+  <span class="close">&times;</span>
+
+  <img class="modal-content" id="img01">
+
+  <div id="caption"></div>
+</div>
+<div class="fade {{item.pk}}" style='display:none'>
+  <div class='numbertext'>2 / 3</div>
+  <img src="{{item.image_2.url}}" class='img'>
+</div>
+
+<div class="fade {{item.pk}} " style='display:none'>
+  <div class='numbertext'>3 / 3</div>
+  <img src="{{item.image_3.url}}" class='img'>
+</div>
+
+<a class='prev' onclick="plusSlides2({{item.pk}},-1)">&#10094;</a>
+<a class='next' style='background-color:black' onclick="plusSlides2({{item.pk}},1)">&#10095;</a>
+
+</div>
+<br>
+
+<div style='text-align:center'>
+  <span class='dot' onclick='currentSlide(1)'></span> 
+  <span class='dot' onclick='currentSlide(2)'></span> 
+  <span class='dot' onclick='currentSlide(3)'></span> 
+</div>
+        
+        </div>
+
+        <p>{{item.body}}<p>
+
+        <ul style='margin-top:200px;'>
+
+          {% for comment in item.comments.all %}
+    
+            <li style='border:4px solid green;margin-top:5px; text-align:left;border-radius:15px; padding:10px'>
+
+              <h4 style='padding:5px;margin-bottom:-15px'>{{comment.user}}</h4>
+              <p style='padding:5px; margin-bottom:0px'>{{comment.body}}</p>
+
+              <div style='display:flex;flex-direction:column;justify-content:right'>
+              {% for comment_child in comment.replies.all %}
+
+                <div style='border:1px solid green; text-align:right;border-radius:15px; padding:10px;'>
+
+                <h4 style='padding:5px;margin-bottom:-15px'>{{comment_child.user}}</h4>
+                <p style='padding:5px; margin-bottom:0px'>{{comment_child.body}}</p></div>
+              {% endfor %}
+
+        {% if user.is_authenticated%}
+          <form method='post' style='width: 100%;'>
+            {% csrf_token %}
+            <input type="hidden" name="comment_id" value="{{comment.pk}}">
+            <input type="hidden" name="content_id" value="{{item.pk}}">
+            <input name='comment' style='border-radius:10px; padding:5px; width:75%'>
+            <input type='submit' value='Jogap ber' class='button' style='border-radius:10px; height:30px; line-height:0px;margin:auto; padding-left:2px;margin-bottom:20px; width:20%;'>
+          </form>
+        {% endif %}
+      {% endfor %}
+    </ul>
+{% if user.is_authenticated %}
+    <form method='post'>
+          {% csrf_token %}
+          <input type='hidden' name='content_id' value="{{item.pk}}" >
+          <input name='comment' style='border-radius:10px; padding:5px;width:75%'>
+          <input type='submit' value='Ugrat' class='button' style='border-radius:10px; height:30px; line-height:0px;margin:auto;padding-left:2px; margin-bottom:20px; width:20%;'><br><br><br>
+    </form>
+{% endif %}
+          
+        {% if user.is_authenticated %}
+          <a href='addtofavorite.php?id=$bilgi[id]&value=jan'>Halanlaryma gos</a>
+        {% endif %}
+
+        </div>
+        </li>
+        <button id='button' class="button {{item.pk}}" style='border-radius:10px; height:30px; line-height:0px;margin:auto; margin-top:-10px; margin-bottom:20px; width:80%;' onclick='uytget({{item.pk}})'>Doly gorkez</button>
+        </ul>
+{% endfor %}
+
+{% if contents.has_previous %}
+        <div> <a href="{% url 'jokes_by_page' contents.previous_page_number %}">Yza</a> </div>
+{% endif %}
+
+<div><span>{{contents.number}}</span></div>
+
+{% if contents.has_next %}
+        <div> <a href="{% url 'jokes_by_page' contents.next_page_number %}">One</a> </div>
+{% endif %}
+
+
+    <script>
+        durum=3;
+        durum2=0;
+        function uytget(n) {
+            if (durum%2==1) {
+              var button=document.getElementsByClassName(n);
+              button[0].style.display='none';
+              button[1].style.display='block';
+              button[5].innerHTML='Gizle';
+              console.log(button);
+            var div=document.getElementById(n);
+            div.style.height='auto';
+            durum=durum+1;
+            durum2=n;
+            }else if(durum%2==0) {
+              var button=document.getElementsByClassName(n);
+              button[0].style.display='inline';
+              button[1].style.display='none';
+              button[5].innerHTML='Doly görkez';
+            var div=document.getElementById(n);
+            console.log(div);
+            div.style.height='200px';
+            durum=durum+1;
+            }
+            }
+            var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides2(k,n) {
+  durum2=k;
+  plusSlides(n);
+}
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides2 = document.getElementsByClassName(durum2);
+  var slides=[];slides.push(slides2[2]);slides.push(slides2[3]);slides.push(slides2[4]);
+  var dots = document.getElementsByClassName("dot");
+  console.log(slides);
+  if (n > slides.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";  
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+}
+    </script>
+  </ul>    
+
+{% endblock content %}
