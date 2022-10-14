@@ -18,4 +18,13 @@ class Notice(models.Model):
 	date = models.DateTimeField(auto_now_add = True)
 	isComment = models.BooleanField(default = True)
 	is_active = models.BooleanField(default = False)
+
+	def __str__(self):
+		return self.body
 	
+
+class Comment_for_Notice(models.Model):
+	body = models.TextField()
+	user = models.ForeignKey(User, on_delete = models.CASCADE)
+	content = models.ForeignKey(Notice, on_delete = models.CASCADE, related_name = 'comments')
+	reply_to = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE, related_name='replies')

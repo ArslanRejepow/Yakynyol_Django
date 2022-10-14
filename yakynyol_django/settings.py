@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'notices.apps.NoticesConfig',
     'breaktime.apps.BreaktimeConfig',
     'lesson.apps.LessonConfig',
     'setting.apps.SettingConfig',

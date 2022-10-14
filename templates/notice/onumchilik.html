@@ -1,0 +1,100 @@
+{% extends 'notice/base.html' %}
+
+{% block content %}
+
+<ul style="display:flex; flex-direction:column">
+
+	{% for notice in content.object_list %}
+
+        <div id="{{notice.pk}}" style='border:1px solid black;padding:10px;margin:20px;margin-top:-5px; border-radius:20px;height:200px;text-size:16px; overflow:hidden'>
+        <li>
+        <img src="{{notice.image.url}}" width=300px height=200px style='float:right;height: 200px;'>
+        <h6>{{ notice.date }}</h6>
+        <p>{{ notice.body }}</p>
+        <a href="{{notice.link}}">{{ notice.link }}</a><br><br>";
+        <ul style=' margin-top:110px'>
+    
+    {% for comment in notice.comments.all %}
+            {% if not comment.reply_to %}
+
+    	<li style='border:1px solid brown; text-align:left;border-radius:15px; padding:10px;'>
+        <h4 style='padding:5px;margin-bottom:-15px'>{{comment.user}}</h4>
+        <p style='padding:5px; margin-bottom:0px'>{{comment.body}}</p>";
+        <div style='display:flex;flex-direction:column;justify-content:right'>
+
+        {% for comment_child in comment.replies.all %}
+        
+            <div style='border:1px solid brown; text-align:right;border-radius:15px; padding:10px;'>
+            	<h4 style='padding:5px;margin-bottom:-15px'>{{comment_child.user}}</h4>
+	            <p style='padding:5px; margin-bottom:0px'>{{comment_child.body}}</p></div>
+        {% endfor %}
+	    </div>
+	    {% if user.is_authenticated %}
+	        <form method='post' style='width:100%;'>
+	        	{% csrf_token %}
+	            <input type="hidden" name="comment_id" value="{{comment.pk}}">
+	            <input type="hidden" name="content_id" value="{{notice.pk}}">
+	        	<input name='comment' style='width:90%;border-radius:10px; padding:5px;'>
+		        <input type='submit' value='Jogap ber' style='background-color:aqua; border-radius:10px'>
+	        </form>
+        {% endif %}
+        {% endif %}
+        </li>
+    
+    {% endfor %}
+    </ul>
+    {% if notice.isComment %}
+      {% if user.is_authenticated %}
+  	    <form method='post'>
+  	    	{% csrf_token %}
+  	        <input type="hidden" name="content_id" value="{{notice.pk}}">
+  	        <input name='comment' type='text' style='border-radius:10px;width:80%'>
+              <input type='submit' value='Ugrat' style='background-color:aqua; border-radius:10px'><br><br><br>
+          </form>
+        	<a href='addtofavorite.php?id=$bilgi[id]&w=0'>Halanlaryma gos</a>
+      {% endif %}
+    {% endif %}
+        <h4>Awtory: {{notice.user}}</h4>
+        </div>
+        <button id='button' class="button {{notice.pk}}" style='border-radius:10px; height:30px; line-height:0px;margin:auto; margin-top:-10px; margin-bottom:20px; width:80%;' onclick="uytget({{notice.pk}})">Doly gorkez</button>
+        </li>
+     </ul>  
+    {% endfor %}
+    <div class="pagination">
+    
+
+{% if content.has_previous %}
+  <a href = "{% url 'notices_by_page' contents.previous_page_number %}">-10</a>
+{% endif %}
+
+
+<div><a>{{content.number}}</a></div>
+
+{% if content.has_next %}
+        <div> <a href="{% url 'notices_by_page' contents.next_page_number %}">One</a> </div>
+{% endif %}
+
+
+</div>
+    <script>
+        durum=3;
+        function uytget(n) {
+            if (durum%2==1) {
+              var button=document.getElementsByClassName(n);
+            var div=document.getElementById(n);
+            div.style.height='auto';
+              button[0].innerHTML='Gizle';
+            durum=durum+1;
+            }else if(durum%2==0) {
+              var button=document.getElementsByClassName(n);
+            var div=document.getElementById(n);
+            console.log(div);
+              button[0].innerHTML='Doly görkez';
+            div.style.height='200px';
+            durum=durum+1;
+            }
+            }
+    </script>
+  
+
+{% endblock content %}

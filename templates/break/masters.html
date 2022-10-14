@@ -79,6 +79,7 @@
         <ul style='margin-top:200px;'>
 
           {% for comment in item.comments.all %}
+            {% if not comment.reply_to %}
     
             <li style='border:4px solid green;margin-top:5px; text-align:left;border-radius:15px; padding:10px'>
 
@@ -102,6 +103,7 @@
             <input name='comment' style='border-radius:10px; padding:5px; width:75%'>
             <input type='submit' value='Jogap ber' class='button' style='border-radius:10px; height:30px; line-height:0px;margin:auto; padding-left:2px;margin-bottom:20px; width:20%;'>
           </form>
+        {% endif %}
         {% endif %}
       {% endfor %}
     </ul>

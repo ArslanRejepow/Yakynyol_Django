@@ -1,0 +1,24 @@
+{% extends 'notice/base.html' %}
+
+{% block content %}
+
+<form action="{% url 'add_notice_view' %}" method="post" enctype='multipart/form-data' style='padding:20px; text-align:center'>
+		{% csrf_token %}
+        <span>Suraty goşuň</span><br><br>
+        <input type="file" name='image'><br><br>
+        <span>Reklamaň textini ýazyň</span><br><br>
+        <textarea name="body" cols="30" rows="10" style='resize:none'></textarea><br><br>
+        <span>Reklamaň linkini ýazyň</span><br><br>
+        <input type="link" name="link"><br><br>
+        <span>Kategoriýany saýlaň</span><br><br>
+        <select name="category">
+            <option value="onumchilik">Onumchilik</option>
+            <option value="sowda">Sowda</option>
+            <option value="okuw">Okuw</option>
+            <option value="habar">Habar</option>
+        </select><br><br>
+        <span>Ulanyjylar teswir yazyp bilsinmi</span><br><br>
+        <input type="checkbox" name="isComment">
+        <button type="submit" class='button' style='line-height:0px; height:30px; padding:0px; width:60%; border-radius:20px' id='button'>Goş</button>
+        </form>
+{% endblock content %}
