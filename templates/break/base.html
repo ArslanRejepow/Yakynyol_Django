@@ -41,7 +41,7 @@
             <li><a href="{% url 'login' %}" class="item">Sazlamalar</a></li>
             <li><a href="{% url 'text' %}" class="item">Sapak</a></li>
             <li><a href="{% url 'break' %}" class="item">Arakesme</a></li>
-            <li><a href="mugallymlar.php" class="item">Bildirişler</a></li>
+            <li><a href="{% url 'notices' %}" class="item">Bildirişler</a></li>
             <li>
                 <a href="#" class="item">
                     (Goşmaça)</a>
@@ -201,11 +201,19 @@
 </div>
 </div>
 
-<div style='float:right; width:20%; border-left:1px solid grey'>
+<div style='float:right; width:20%; border-left:1px solid grey' id='left_ads'>
 
-<a href='#'>
-
-  <img src='$surat' alt=$surat width=100% height=200px></a>
+<script type="text/javascript">
+    res = fetch("{% url 'get_left_ads' %}")
+        .then(res => res.json())
+        .then(data => {
+            let a
+            data.forEach(key => {
+                a = `<a href=`+key.link+`><img src=`+key.image+`></a>`;
+                document.getElementById('left_ads').innerHTML = a; 
+            })
+        })
+</script>
 
 </div></div>
 

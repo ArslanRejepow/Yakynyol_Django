@@ -7,3 +7,9 @@ class Left_Ad(models.Model):
 
 	def __str__(self):
 		return self.link
+
+	def serialize(self):
+		return {
+            "image": self.image.url,
+            "link": self.link 
+        }
