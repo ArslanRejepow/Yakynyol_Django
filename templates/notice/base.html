@@ -150,23 +150,23 @@
     <div class="container">
         <div class="box-left">
             <ul class="menu-filters js-filters-new">
-                <li class="item" data-order="name">
+                <li class="item" id="1st">
                     <a href="{% url 'notices' %}"><div class="leftbar" >Hemmesi</div></a>                                   
                 </li>
-                <li class="item" data-order="name">
+                <li class="item" id="2nd">
                     <a href="{% url 'onumchilik' %}"><div class="leftbar" >Önümçilik saýtlary</div></a>
                 </li>
-                <li class="item" data-order="name">
+                <li class="item" id="3rd">
                     <a href="{% url 'sowda' %}"><div class="leftbar" >Söwda saýtlary</div></a>
                 </li>
-                <li class="item" data-order="name">
+                <li class="item" id="4th">
                     <a href="{% url 'okuw' %}"><div class="leftbar" >Okuw saýtlary</div></a>
                 </li>
-                <li class="item" data-order="name">
+                <li class="item" id="5th">
                     <a href="{% url 'habar' %}"><div class="leftbar" >Habar saýtlary</div></a>
                 </li>
                 {% if user.is_authenticated %}
-                <li class="item" data-order="name">
+                <li class="item" id="6th">
                     <a href="{% url 'add_notice' %}"><div class="leftbar" >Bildiriş goş</div></a>
                 </li>
                 {% endif %}

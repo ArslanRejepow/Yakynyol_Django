@@ -150,20 +150,20 @@
     <div class="container">
         <div class="box-left">
             <ul class="menu-filters js-filters-new">
-                <li class="item" data-order="name">
+                <li class="item"  id='1st' data-order="name">
                     <a href="{% url 'about' %}"><div class="leftbar" >Hyzmatlarymyz barada</div></a>                                   
                 </li>
-                <li class="item" data-order="name">
-                    <a href="{% url 'about_english' %}"><div class="leftbar" >Iňlis dili barada</div></a>
+                <li class="item" id='2nd' data-order="name">
+                    <a href="{% url 'about_english' %}"><div class="leftbar">Iňlis dili barada</div></a>
                 </li>
-                <li class="item" data-order="name">
-                    <a href="{% url 'about_russian' %}"><div class="leftbar" >Rus dili barada</div></a>
+                <li class="item" id='3rd' data-order="name">
+                    <a href="{% url 'about_russian' %}"><div class="leftbar">Rus dili barada</div></a>
                 </li>
-                <li class="item" data-order="name">
-                    <a href="{% url 'about_chinese' %}"><div class="leftbar" >Hytaý dili barada</div></a>
+                <li class="item" id='4th' data-order="name">
+                    <a href="{% url 'about_chinese' %}"><div class="leftbar">Hytaý dili barada</div></a>
                 </li>
-                <li class="item" data-order="name">
-                    <a href="{% url 'about_turkish' %}"><div class="leftbar" >Türk dili barada</div></a>
+                <li class="item" id='5th' data-order="name">
+                    <a href="{% url 'about_turkish' %}"><div class="leftbar">Türk dili barada</div></a>
                 </li>
             </ul>
         </div>
@@ -183,11 +183,6 @@
             float:center;
             text-align:center;
             ">
-
-<form action="{% url 'search' %}" method='get' style='display:block;margin-left:10%;margin-top:-20px'>
-    <input type="text" name='q' style='border-radius:10px;margin:auto;height:30px;width:80%;padding-left:5px; margin-top:30px;'>
-    <input type="submit" value='Gözle' class='button' style='height:30px;line-height:0px;border-radius:10px;margin:auto;margin-bottom:30px'>
-</form>
 
 
 {% block content %}

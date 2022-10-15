@@ -152,16 +152,20 @@
         <div class="box-left">
             <ul class="menu-filters js-filters-new">
                 {% if user.is_authenticated %}
-                <li data-name="filter.navigation_section.awards" class="item dropdown" data-order="name">
-                    <a href="{% url 'profile' %}"><div class="leftbar" >Profil</div></a>                                   
-                </li>
+                    <li class="item" id="1st">
+                        <a href="{% url 'profile' %}"><div class="leftbar" >Profil</div></a>                                   
+                    </li>
+                    <li class="item" id="2nd">
+                        <a href="#"><div class="leftbar" >Halanlarym</div></a>
+                    </li>
                 {% else %}
-                <li data-name="filter.navigation_section.awards" class="item dropdown" data-order="name">
-                    <a href="{% url 'login' %}"><div class="leftbar" >Login</div></a>                                   
-                </li>
+                    <li class="item" id="1st">
+                        <a href="{% url 'login' %}"><div class="leftbar" >Login</div></a>                                   
+                    </li>
                 {% endif %}
-                <li data-name="filter.navigation_section.awards" class="item dropdown" data-order="name">
-                    <a href="{% url 'choose_lesson' %}"><div class="leftbar" >Sapak sayla</div></a>                                   
+
+                <li class="item" id="3rd">
+                    <a href="{% url 'choose_lesson' %}"><div class="leftbar" >Sapak sayla</div></a>
                 </li>    
             </ul>
         </div>
