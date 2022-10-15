@@ -1,0 +1,15 @@
+{% extends 'settings/base.html' %}
+
+{% block content %}
+
+{% for item in user.favorites.all %}
+
+	<form action = "{% url 'text' %}" method="post" style='width:100%;text-align:center'>
+	    {% csrf_token %}
+		<input type="hidden" name="lesson" value="{{item.lesson.pk}}">
+		<button>{{item.lesson}}</button>
+	</form>
+
+{% endfor %}
+
+{% endblock content %}

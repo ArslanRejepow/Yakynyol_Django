@@ -1,4 +1,5 @@
 from django.db import models
+from users.models import User
 
 CATEGORY_CHOICES = (
     ('english','Inlis Dili'),
@@ -28,3 +29,10 @@ class Lesson(models.Model):
 
 	def __str__(self):
 		return self.name
+
+class Favorites(models.Model):
+	user = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'favorites')
+	lesson = models.ForeignKey(Lesson, on_delete = models.CASCADE)
+
+	def __str__(self):
+		return self.user.username + "  --  " + self.lesson.name
