@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Notice, Comment_for_Notice
+from .models import Notice, Comment_for_Notice, Favorites_Notice
 from .forms import NoticeForm
 from users.models import User
 from django.core.paginator import Paginator
@@ -116,3 +116,15 @@ def delete_comment(request, pk, uri):
 
 
 	return redirect(uri)
+
+def add_to_favorites(request, pk, uri):
+	user_ = User.objects.get(pk = request.user.pk)
+	notice_ = Notice.objects.get(pk =pk)
+
+	notice = Favorites_Notice(notice = notice_, user = user_)
+	notice.save()
+	return redirect(uri)
+
+def favorites_notice(request):
+	
+	return render(request, 'notice/favorites.html')

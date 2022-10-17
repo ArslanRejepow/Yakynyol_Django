@@ -28,3 +28,10 @@ class Comment_for_Notice(models.Model):
 	user = models.ForeignKey(User, on_delete = models.CASCADE)
 	content = models.ForeignKey(Notice, on_delete = models.CASCADE, related_name = 'comments')
 	reply_to = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE, related_name='replies')
+
+class Favorites_Notice(models.Model):
+	user = models.ForeignKey("users.User", on_delete=models.CASCADE, related_name = 'favorite_notices')
+	notice = models.ForeignKey(Notice, on_delete=models.CASCADE)
+
+	def __str__(self):
+		return self.user.username + "  --  " + self.notice.body

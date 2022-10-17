@@ -153,6 +153,11 @@
                 <li class="item" id="1st">
                     <a href="{% url 'notices' %}"><div class="leftbar" >Hemmesi</div></a>                                   
                 </li>
+                {% if user.is_authenticated %}
+                    <li class="item" id="7th">
+                        <a href="{% url 'favorites_notice' %}"><div class="leftbar" >Halanlarym</div></a>                                   
+                    </li>
+                {% endif %}
                 <li class="item" id="2nd">
                     <a href="{% url 'onumchilik' %}"><div class="leftbar" >Önümçilik saýtlary</div></a>
                 </li>

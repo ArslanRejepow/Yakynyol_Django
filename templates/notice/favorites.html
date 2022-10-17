@@ -1,26 +1,24 @@
 {% extends 'notice/base.html' %}
-
 {% load split_tag %}
-{% block content %}
 
+{% block content %}
 <ul style="display:flex; flex-direction:column">
 
-	{% for notice in content.object_list %}
+	{% for notice in user.favorite_notices.all %}
 
         <div id="{{notice.pk}}" style='border:1px solid black;padding:10px;margin:20px;margin-top:-5px; border-radius:20px;height:200px;text-size:16px; overflow:hidden'>
         <li>
-        <img src="{{notice.image.url}}" width=300px height=200px style='float:right;height: 200px;'>
-        <h6>{{ notice.date }}</h6>
-        <p>{{ notice.body }}</p>
-        <a href="{{notice.link}}">{{ notice.link }}</a><br><br>";
+        <img src="{{notice.notice.image.url}}" width=300px height=200px style='float:right;height: 200px;'>
+        <h6>{{ notice.notice.date }}</h6>
+        <p>{{ notice.notice.body }}</p>
+        <a href="{{notice.notice.link}}">{{ notice.notice.link }}</a><br><br>";
         <ul style=' margin-top:110px'>
-    
-    {% for comment in notice.comments.all %}
+    {% for comment in notice.notice.comments.all %}
             {% if not comment.reply_to %}
 
       <li style='border:1px solid brown; text-align:left;border-radius:15px; padding:10px;'>
             {% if comment.user.pk == user.pk %}
-              <a href="{% url 'delete_comment' comment.pk request.path|spliturl %}">Teswiri poz</a>
+              <a href="{% url 'delete_comment' comment.pk request.path|split %}">Teswiri poz</a>
             {% endif %}
         <h4 style='padding:5px;margin-bottom:-15px'>{{comment.user}}</h4>
         <p style='padding:5px; margin-bottom:0px'>{{comment.body}}</p>";
@@ -30,7 +28,7 @@
         
             <div style='border:1px solid brown; text-align:right;border-radius:15px; padding:10px;'>
                 {% if comment_child.user.pk == user.pk %}
-                  <a href="{% url 'delete_comment' comment_child.pk request.path|spliturl %}">Teswiri poz</a>
+                  <a href="{% url 'delete_comment' comment_child.pk request.path|split %}">Teswiri poz</a>
                 {% endif %}
               <h4 style='padding:5px;margin-bottom:-15px'>{{comment_child.user}}</h4>
               <p style='padding:5px; margin-bottom:0px'>{{comment_child.body}}</p></div>
@@ -40,7 +38,7 @@
           <form action = "{% url 'add_comment' request.path|split %}" method='post' style='width:100%;'>
             {% csrf_token %}
               <input type="hidden" name="comment_id" value="{{comment.pk}}">
-              <input type="hidden" name="content_id" value="{{notice.pk}}">
+              <input type="hidden" name="content_id" value="{{notice.notice.pk}}">
             <input name='comment' style='width:90%;border-radius:10px; padding:5px;'>
             <input type='submit' value='Jogap ber' style='background-color:aqua; border-radius:10px'>
           </form>
@@ -50,20 +48,18 @@
     
     {% endfor %}
     </ul>
-    {% if notice.isComment %}
+    {% if notice.notice.isComment %}
       {% if user.is_authenticated %}
         <form action = "{% url 'add_comment' request.path|split %}" method='post'>
           {% csrf_token %}
-            <input type="hidden" name="content_id" value="{{notice.pk}}">
+            <input type="hidden" name="content_id" value="{{notice.notice.pk}}">
             <input name='comment' type='text' style='border-radius:10px;width:80%'>
               <input type='submit' value='Ugrat' style='background-color:aqua; border-radius:10px'><br><br><br>
           </form>
-          {% if user.is_authenticated %}
-              <a href = "{% url 'add_to_favorites_notice' notice.pk request.path|spliturl %}">Halanlaryma gos</a>
-          {% endif %}
+          <a href='addtofavorite.php?id=$bilgi[id]&w=0'>Halanlaryma gos</a>
       {% endif %}
     {% endif %}
-        <h4>Awtory: {{notice.user}}</h4>
+        <h4>Awtory: {{notice.notice.user}}</h4>
         </div>
         <button id='button' class="button {{notice.pk}}" style='border-radius:10px; height:30px; line-height:0px;margin:auto; margin-top:-10px; margin-bottom:20px; width:80%;' onclick="uytget({{notice.pk}})">Doly gorkez</button>
         </li>
@@ -106,7 +102,7 @@
     </script>
   
 <script type="text/javascript">
-  item = document.getElementById('5th').classList.add('leftbarcurrent');
+  item = document.getElementById('7th').classList.add('leftbarcurrent');
 </script>
     
 {% endblock content %}

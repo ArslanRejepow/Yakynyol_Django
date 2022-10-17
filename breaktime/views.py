@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Content, Comment_for_Content
+from .models import Content, Comment_for_Content, Favorites_Content
 from users.models import User
 from django.core.paginator import Paginator
 
@@ -115,3 +115,15 @@ def delete_comment_break(request, pk, uri):
 	print(uri)
 
 	return redirect(uri)
+
+def add_to_favorites(request, pk, uri):
+	user_ = User.objects.get(pk = request.user.pk)
+	content_ = Content.objects.get(pk =pk)
+
+	content = Favorites_Content(content = content_, user = user_)
+	content.save()
+	return redirect(uri)
+
+def favorites(request):
+
+	return render(request, 'break/favorites.html')

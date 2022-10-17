@@ -58,7 +58,9 @@
             <input name='comment' type='text' style='border-radius:10px;width:80%'>
               <input type='submit' value='Ugrat' style='background-color:aqua; border-radius:10px'><br><br><br>
           </form>
-          <a href='addtofavorite.php?id=$bilgi[id]&w=0'>Halanlaryma gos</a>
+          {% if user.is_authenticated %}
+              <a href = "{% url 'add_to_favorites_notice' notice.pk request.path|spliturl %}">Halanlaryma gos</a>
+          {% endif %}
       {% endif %}
     {% endif %}
         <h4>Awtory: {{notice.user}}</h4>

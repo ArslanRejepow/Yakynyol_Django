@@ -28,3 +28,9 @@ class Comment_for_Content(models.Model):
 	content = models.ForeignKey(Content, on_delete = models.CASCADE, related_name = 'comments')
 	reply_to = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE, related_name='replies')
 
+class Favorites_Content(models.Model):
+	user = models.ForeignKey("users.User", on_delete=models.CASCADE, related_name = 'favorite_contents')
+	content = models.ForeignKey(Content, on_delete=models.CASCADE)
+
+	def __str__(self):
+		return self.user.username + "  --  " + self.content.body

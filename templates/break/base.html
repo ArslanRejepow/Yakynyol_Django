@@ -154,6 +154,11 @@
                 <li class="item" id='1st' data-order="name">
                     <a href="{% url 'break' %}"><div class="leftbar" >Hemmesi</div></a>                                   
                 </li>
+                {% if user.is_authenticated %}
+                    <li class="item" id='7th' data-order="name">
+                        <a href="{% url 'favorites_break' %}"><div class="leftbar" >Halanlarym</div></a>                                   
+                    </li>
+                {% endif %}
                 <li class="item" id='2nd' data-order="name">
                     <a href="{% url 'teachers' %}"><div class="leftbar" >Mugallymlar we Okuwçylar</div></a>
                 </li>
