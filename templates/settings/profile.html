@@ -1,61 +1,63 @@
 {% extends 'settings/base.html' %}
 
+{% load split_tag %}
+
 {% block content %}
+<h1>{{request.path}}</h1>
 
-<h3><?php echo $_SESSION['username']; ?></h3>
+<h3>{{ user }}</h3>
 <ul style="display:flex; flex-direction:column">
-  <?php 
-    $kontrol=mysqli_query($baglan,"select * from ulanyjy_reklama where ulanyjy_ady='$_SESSION[username]' order by id DESC");
-    $durum=1;
-    while ($bilgi=mysqli_fetch_array($kontrol)) {  
-      echo "
-        <div id=$bilgi[id] style='border:1px solid black;padding:10px;margin:20px;margin-top:-5px; border-radius:20px;height:200px;text-size:16px; overflow:hidden'>
+  {% for notice in user.notices.all %}
+  <div id="{{notice.pk}}" style='border:1px solid black;padding:10px;margin:20px;margin-top:-5px; border-radius:20px;height:200px;text-size:16px; overflow:hidden'>
         <li>
-        <img src='$bilgi[surat]' width=300px height=200px style='float:right;height: 200px;'>
-        <h6>$bilgi[date]</h6>
-        <p>$bilgi[text]</p>
-        <a href='$bilgi[link]'>$bilgi[link]</a><br><br>";
-        $query=mysqli_query($baglan,"select * from teswirler_ulanyjy_reklama where reklama=$bilgi[id] and aktif=1");?>
+        <img src='{{notice.image.url}}' width=300px height=200px style='float:right;height: 200px;'>
+        <h6>{{notice.date}}</h6>
+        <p>{{notice.body}}</p>
+        <a href='{{notice.link}}'>{{notice.link}}</a><br><br>";
+        <a href="{% url 'delete' notice.pk %}" class="button " >Bildirişi poz</a>
         <ul style=' margin-top:110px'>
-    <?php 
-    while ($bilgi2=mysqli_fetch_array($query)) {
-        echo "
-        <li style='border:1px solid brown; text-align:";if($bilgi2['ulanyjy_ady']=='admin'){echo "left;";}else{echo "right;";}echo ";border-radius:15px; padding:10px;'>";if(isset($_SESSION['username']) and $_SESSION['username']=='admin'){
-            echo "<a href='delete_comments.php?id=$bilgi2[id]' style='float:right'>Teswiri poz</a>";} echo "
-        <h4 style='padding:5px;margin-bottom:-15px'>$bilgi2[ulanyjy_ady]</h4>
-        <p style='padding:5px; margin-bottom:0px'>$bilgi2[text]</p>";
-        
-       }
-    ?></ul><?php
-        if (isset($_SESSION['username']) and $_SESSION['teswir']=='hawa') {
-          echo "<br><br>
-          <form action='add_comment_for_ad.php?id=$bilgi[id]&value2=salam' method='post'>
-          <input name='teswir' type='text' style='border-radius:10px;width:100%;background-color:white;border:1px solid black' placeholder='Teswiriniz'>
-          <input type='submit' value='Ugrat' style='background-color:aqua; border-radius:10px'><br><br><br>
-          </form>
-          ";
-      }
-      if (isset($_SESSION['username'])){
-        echo "
-        <a href='active_ads.php?id=$bilgi[id]&value=2'>Reklamany poz</a>
-        ";
-    }
-    if (isset($_SESSION['username']) and $_SESSION['username']=='admin'){
-        echo "
-        <a href='active_ads.php?id=$bilgi[id]&value=2'>Reklamany pos</a>
-        
-        ";
-    }
-        echo "
-        <h4>Awtory: $bilgi[ulanyjy_ady]</h4>
-        </div>
-        <button id='button' class='button $bilgi[id]' style='border-radius:10px; height:30px; line-height:0px;margin:auto; margin-top:-10px; margin-bottom:20px; width:80%;' onclick='uytget($bilgi[id])'>Doly gorkez</button>
-        </li>
-        ";
-        
-    }
+        {% for comment in notice.comments.all %}
+                {% if not comment.reply_to %}
+          <li style='border:1px solid brown; text-align:left;border-radius:15px; padding:10px;'>
+            {% if comment.user.pk == user.pk %}
+              <a href="{% url 'delete_comment' comment.pk request.path|split %}">Teswiri poz</a>
+            {% endif %}
+            <h4 style='padding:5px;margin-bottom:-15px'>{{comment.user}}</h4>
+            <p style='padding:5px; margin-bottom:0px'>{{comment.body}}</p>";
+            <div style='display:flex;flex-direction:column;justify-content:right'>
 
-    ?></ul>   
+
+            {% for comment_child in comment.replies.all %}
+            
+                <div style='border:1px solid brown; text-align:right;border-radius:15px; padding:10px;'>
+                {% if comment_child.user.pk == user.pk %}
+                  <a href="{% url 'delete_comment' comment_child.pk request.path|split %}">Teswiri poz</a>
+                {% endif %}
+                  <h4 style='padding:5px;margin-bottom:-15px'>{{comment_child.user}}</h4>
+                  <p style='padding:5px; margin-bottom:0px'>{{comment_child.body}}</p></div>
+            {% endfor %}
+          </div>
+          {% if user.is_authenticated %}
+              <form method='post' style='width:100%;'>
+                {% csrf_token %}
+                  <input type="hidden" name="comment_id" value="{{comment.pk}}">
+                  <input type="hidden" name="content_id" value="{{notice.pk}}">
+                <input name='comment' style='width:90%;border-radius:10px; padding:5px;'>
+                <input type='submit' value='Jogap ber' style='background-color:aqua; border-radius:10px'>
+              </form>
+            {% endif %}
+            {% endif %}
+            </li>
+        
+        {% endfor %}
+        </ul>
+        <h4>{{notice.user}}</h4>
+        </div>
+        <button id='button' class='button {{notice.pk}}' style='border-radius:10px; height:30px; line-height:0px;margin:auto; margin-top:-10px; margin-bottom:20px; width:80%;' onclick='uytget({{notice.pk}})'>Doly gorkez</button>
+        </li>
+      {% endfor %}
+      </ul>   
+
     <script>
         durum=3;
         function uytget(n) {

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import all_content, add_notice, addNotice, onumchilik, sowda, okuw, habar
+from .views import all_content, add_notice, addNotice, onumchilik, sowda, okuw, habar, delete_comment, add_comment
 
 urlpatterns = [
 	path('', all_content, name='notices'),
@@ -10,4 +10,6 @@ urlpatterns = [
 	path('sowda', sowda, name='sowda'),
 	path('okuw', okuw, name='okuw'),
 	path('habar', habar, name='habar'),
+	path('delete_comment/<int:pk>/<str:uri>', delete_comment, name='delete_comment'),
+	path('add_comment/<str:uri>', add_comment, name='add_comment'),
 ]

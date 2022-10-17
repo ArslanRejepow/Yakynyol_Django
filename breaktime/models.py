@@ -27,3 +27,4 @@ class Comment_for_Content(models.Model):
 	user = models.ForeignKey(User, on_delete = models.CASCADE)
 	content = models.ForeignKey(Content, on_delete = models.CASCADE, related_name = 'comments')
 	reply_to = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE, related_name='replies')
+

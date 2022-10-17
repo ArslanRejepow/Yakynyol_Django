@@ -2,11 +2,10 @@ from django.shortcuts import render, redirect
 from .models import Notice, Comment_for_Notice
 from .forms import NoticeForm
 from users.models import User
-
 from django.core.paginator import Paginator
 # Create your views here.
 
-def add_comment(request):
+def add_comment(request, uri):
 	if request.method == "POST":
 		if request.POST.get('comment_id'): replied_comment = request.POST.get('comment_id')
 		try:
@@ -16,15 +15,14 @@ def add_comment(request):
 		
 		user_ = User.objects.get(pk = request.user.pk)
 		content = Notice.objects.get(pk =request.POST.get('content_id'))
-		print(comment_object)
 
 		comment = Comment_for_Notice(body = request.POST.get('comment'), user = user_, content= content, reply_to=comment_object)
 		comment.save()
+	return redirect(uri)
 
 def all_content(request, page=1):
 	objects_list = Notice.objects.filter(is_active=True)
 	paginator = Paginator(objects_list, 10)
-	add_comment(request)
 
 	objects = paginator.get_page(page)
 
@@ -63,7 +61,6 @@ def addNotice(request):
 def onumchilik(request, page=1):
 	objects_list = Notice.objects.filter(is_active=True, category = 'onumchilik')
 	paginator = Paginator(objects_list, 10)
-	add_comment(request)
 
 	objects = paginator.get_page(page)
 
@@ -77,7 +74,6 @@ def onumchilik(request, page=1):
 def sowda(request, page=1):
 	objects_list = Notice.objects.filter(is_active=True, category = 'sowda')
 	paginator = Paginator(objects_list, 10)
-	add_comment(request)
 
 	objects = paginator.get_page(page)
 
@@ -91,7 +87,6 @@ def sowda(request, page=1):
 def okuw(request, page=1):
 	objects_list = Notice.objects.filter(is_active=True, category = 'okuw')
 	paginator = Paginator(objects_list, 10)
-	add_comment(request)
 
 	objects = paginator.get_page(page)
 
@@ -105,7 +100,6 @@ def okuw(request, page=1):
 def habar(request, page=1):
 	objects_list = Notice.objects.filter(is_active=True, category = 'habar')
 	paginator = Paginator(objects_list, 10)
-	add_comment(request)
 
 	objects = paginator.get_page(page)
 
@@ -115,3 +109,10 @@ def habar(request, page=1):
 	}
 	
 	return render(request, "notice/habar.html", context = context)	
+
+def delete_comment(request, pk, uri):
+	instance = Comment_for_Notice.objects.get(pk=pk)
+	instance.delete()
+
+
+	return redirect(uri)

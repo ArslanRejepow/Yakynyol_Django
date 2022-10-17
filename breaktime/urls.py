@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import all_content, teachers_content, students_content, masters_content, internet_content, jokes_content, search
+from .views import all_content, teachers_content, students_content, masters_content, internet_content, jokes_content, search, add_comment, delete_comment_break
 
 urlpatterns = [
 	path('', all_content, name='break'),
@@ -15,4 +15,6 @@ urlpatterns = [
 	path('jokes', jokes_content, name='jokes'),
 	path('jokes/<int:page>', jokes_content, name='jokes_by_page'),
 	path('search', search, name='search'),
+	path('add_comment_break/<str:uri>', add_comment, name='add_comment_break'),
+	path('delete_comment_break/<int:pk>/<str:uri>', delete_comment_break, name='delete_comment_break'),
 ]

@@ -10,7 +10,7 @@ CATEGORY_CHOICES = (
 
 # Create your models here.
 class Notice(models.Model):
-	user = models.ForeignKey(User, on_delete = models.CASCADE)
+	user = models.ForeignKey(User, on_delete = models.CASCADE, related_name = "notices")
 	body = models.TextField()
 	image = models.ImageField(upload_to = 'images')
 	link = models.URLField()

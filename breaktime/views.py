@@ -1,11 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Content, Comment_for_Content
 from users.models import User
 from django.core.paginator import Paginator
 
 # Create your views here.
 
-def add_comment(request):
+def add_comment(request, uri):
 	if request.method == "POST":
 		if request.POST.get('comment_id'): replied_comment = request.POST.get('comment_id')
 		try:
@@ -15,16 +15,15 @@ def add_comment(request):
 		
 		user_ = User.objects.get(pk = request.user.pk)
 		content = Content.objects.get(pk =request.POST.get('content_id'))
-		print(comment_object)
 
 		comment = Comment_for_Content(body = request.POST.get('comment'), user = user_, content= content, reply_to=comment_object)
 		comment.save()
+	return redirect(uri)
 
 
 def all_content(request, page=None):
 	objects_list = Content.objects.all()
 	paginator = Paginator(objects_list, 10)
-	add_comment(request)
 
 	objects = paginator.get_page(page)
 
@@ -38,7 +37,6 @@ def all_content(request, page=None):
 def teachers_content(request, page=1):
 	objects_list = Content.objects.filter(category='teachers')
 	paginator = Paginator(objects_list, 10)
-	add_comment(request)
 
 	objects = paginator.get_page(page)
 
@@ -52,7 +50,6 @@ def teachers_content(request, page=1):
 def students_content(request, page=1):
 	objects_list = Content.objects.filter(category='students')
 	paginator = Paginator(objects_list, 10)
-	add_comment(request)
 
 	objects = paginator.get_page(page)
 
@@ -66,7 +63,6 @@ def students_content(request, page=1):
 def masters_content(request, page=1):
 	objects_list = Content.objects.filter(category='masters')
 	paginator = Paginator(objects_list, 10)
-	add_comment(request)
 
 	objects = paginator.get_page(page)
 
@@ -80,7 +76,6 @@ def masters_content(request, page=1):
 def internet_content(request, page=1):
 	objects_list = Content.objects.filter(category='internet')
 	paginator = Paginator(objects_list, 10)
-	add_comment(request)
 
 	objects = paginator.get_page(page)
 
@@ -94,7 +89,6 @@ def internet_content(request, page=1):
 def jokes_content(request, page=1):
 	objects_list = Content.objects.filter(category='jokes')
 	paginator = Paginator(objects_list, 10)
-	add_comment(request)
 
 	objects = paginator.get_page(page)
 
@@ -113,3 +107,11 @@ def search(request):
 	}
 	
 	return render(request, "break/search.html", context = context)
+
+def delete_comment_break(request, pk, uri):
+	instance = Comment_for_Content.objects.get(pk=pk)
+	instance.delete()
+
+	print(uri)
+
+	return redirect(uri)

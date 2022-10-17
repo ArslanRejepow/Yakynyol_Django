@@ -3,6 +3,7 @@ from users.forms import UserRegisterForm
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
 from .models import Lesson, Favorites
+from notices.models import Notice
 from users.models import User
 from django.http import HttpResponse
 
@@ -31,6 +32,7 @@ def login_view(request):
 	return render(request, 'settings/login.html', {'form': form})
 
 def profile(request):
+	print('\n'*5, dir(request), '\n'*5)
 	return render(request, 'settings/profile.html')
 
 def logout_view(request):
@@ -65,3 +67,9 @@ def add_to_favorites(request):
 def favorites(request):
 
 	return render(request, 'settings/favorites.html')
+
+def delete_notice(request, pk):
+	notice = Notice.objects.get(pk = pk)
+	notice.delete()
+
+	return redirect('profile')

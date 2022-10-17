@@ -1,7 +1,7 @@
 {% extends 'notice/base.html' %}
+{% load split_tag %}
 
 {% block content %}
-
 
 <ul style="display:flex; flex-direction:column">
 
@@ -19,6 +19,9 @@
             {% if not comment.reply_to %}
 
     	<li style='border:1px solid brown; text-align:left;border-radius:15px; padding:10px;'>
+            {% if comment.user.pk == user.pk %}
+              <a href="{% url 'delete_comment' comment.pk request.path|spliturl %}">Teswiri poz</a>
+            {% endif %}
         <h4 style='padding:5px;margin-bottom:-15px'>{{comment.user}}</h4>
         <p style='padding:5px; margin-bottom:0px'>{{comment.body}}</p>";
         <div style='display:flex;flex-direction:column;justify-content:right'>
@@ -26,12 +29,15 @@
         {% for comment_child in comment.replies.all %}
         
             <div style='border:1px solid brown; text-align:right;border-radius:15px; padding:10px;'>
+                {% if comment_child.user.pk == user.pk %}
+                  <a href="{% url 'delete_comment' comment_child.pk request.path|spliturl %}">Teswiri poz</a>
+                {% endif %}
             	<h4 style='padding:5px;margin-bottom:-15px'>{{comment_child.user}}</h4>
 	            <p style='padding:5px; margin-bottom:0px'>{{comment_child.body}}</p></div>
         {% endfor %}
 	    </div>
 	    {% if user.is_authenticated %}
-	        <form method='post' style='width:100%;'>
+	        <form action = "{% url 'add_comment' request.path|spliturl %}" method='post' style='width:100%;'>
 	        	{% csrf_token %}
 	            <input type="hidden" name="comment_id" value="{{comment.pk}}">
 	            <input type="hidden" name="content_id" value="{{notice.pk}}">
@@ -46,7 +52,7 @@
     </ul>
     {% if notice.isComment %}
       {% if user.is_authenticated %}
-  	    <form method='post'>
+  	    <form action = "{% url 'add_comment' request.path|spliturl %}" method='post'>
   	    	{% csrf_token %}
   	        <input type="hidden" name="content_id" value="{{notice.pk}}">
   	        <input name='comment' type='text' style='border-radius:10px;width:80%'>
