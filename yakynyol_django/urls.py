@@ -19,6 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('shopping/', include('markets.urls')),
     path('notices/', include('notices.urls')),
     path('break/', include('breaktime.urls')),
     path('lesson/', include('lesson.urls')),

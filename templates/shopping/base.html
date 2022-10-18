@@ -1,0 +1,233 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html class="no-js" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="referrer" content="origin-when-cross-origin">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="images/favicon.png">
+    <meta name="description" content="Yakynyol dil owren">
+        <meta name="theme-color" content="#3ea094">
+        <title>    Ýakyn ýol
+</title>
+<style> table, th, td{
+     border:1px solid black;
+     padding:10px;
+ }</style>
+        <link rel='stylesheet' href="{% static 'css/login-style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/mobile-style.css' %}">
+
+
+        <link href="{% static 'dist/css/lib/bootstrap.min.css' %}" type="text/css" rel="stylesheet">
+        <!-- Swipe core CSS -->
+        <link href="{% static 'dist/css/swipe.min.css' %}" type="text/css" rel="stylesheet">
+		<!-- Swipe core CSS -->
+    </script>
+    <!-- End Google Tag Manager -->
+
+<body class="">
+    <div class="eu-location" data-eu="0"></div>
+        <!-- Google Tag Manager (noscript) -->
+        <!-- <script src="./Awwwards - Website Design Inspiration_files/runtime.5ddff000.js.Без названия" defer=""></script><script src="./Awwwards - Website Design Inspiration_files/9755.ad58b337.js.Без названия" defer=""></script><script src="./Awwwards - Website Design Inspiration_files/6928.994e9a84.js.Без названия" defer=""></script><script src="./Awwwards - Website Design Inspiration_files/566.7d7cc9c1.js.Без названия" defer=""></script><script src="./Awwwards - Website Design Inspiration_files/grid.b2cb09c6.js.Без названия" defer=""></script>
+
+<script type="text/javascript" src="./Awwwards - Website Design Inspiration_files/be.js.Без названия"></script><script src="js/f(1).txt"></script></head> -->
+
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div class="wrapper ">
+            
+<nav class="nav-main" id="nav-main">
+    <div class="top">
+        <div class="header">
+            <div class="pull-left">
+                <span class="link-underlined js-nav-menu" data-menu-id="menu-lang">English</span>
+            </div>
+            <div class="pull-right">
+                <div class="bt-close js-close-menu text-uppercase" onclick='closeMenu()'>close</div>
+            </div>
+        </div>
+        <ul class="menu active" data-menu-name="English" data-menu-id="menu-lang" id="menu-main">
+
+            <li class="active"><a href="{% url 'about' %}" class="item">Saýdyň ulanylyşy</a></li>
+            <li><a href="{% url 'login' %}" class="item">Sazlamalar</a></li>
+            <li><a href="{% url 'text' %}" class="item">Sapak</a></li>
+            <li><a href="{% url 'break' %}" class="item">Arakesme</a></li>
+            <li><a href="{% url 'notices' %}" class="item">Bildirişler</a></li>
+            <li>
+                <a href="#" class="item">
+                    (Goşmaça)</a>
+            </li>
+            
+        </ul>
+        <ul class="menu" data-menu-name="BACK" data-menu-id="menu-main" id="menu-lang" onclick="menuLang()">
+
+                            <li lang="en" class="js-change-locale active" data-locale="en">
+                    <span class="item">
+                        Turkmen
+                                                    <span class="bt-check active">
+                                <span class="bt-content"></span>
+                            </span>
+                                            </span>
+                </li>
+            <li lang="pt"><span class="item">English <span class="soon">Soon!</span></span></li>
+            <li lang="fr"><span class="item">Russian <span class="soon">Potom!</span></span></li>
+        </ul>
+    </div>
+       
+    </nav>
+
+                    <header id="header">
+        <div class="header-main">
+            <div class="box-left" onclick="openMenu()">
+                <div class="item bt-menu js-nav-main" data-menu-id="menu-main">
+                    <div class="ico-menu">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
+                    <span class="has-tablet">MENU</span>
+                </div>
+            </div>
+            <div class="box-right" onclick='closeMenu()'>
+
+                {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}" id='registerhref'>Logout      </a>
+                {% else %}
+                <a href="{% url 'login' %}" id='registerhref'>Register </a>
+                {% endif %}
+
+            <div class="item login">
+                {% if user.is_authenticated %}
+                    <strong><a class='text-black' href="{% url 'logout' %}">Log Out</a></strong>
+                {% else %}
+                    <strong><a class='text-black' href="{% url 'login' %}">Register / log in</a></strong>
+                {% endif %}
+                
+     
+                            </div>
+            <div class="logo-header" onclick='closeMenu()'>
+                <img src="images/logo.png" alt="Bolanok" style='width:300px; height:90px;position:relative;top:-35px;'>
+                                                
+            </div>
+        </div>
+    </header>
+                
+
+    <script>
+            durum=1;
+        var styleElem = document.head.appendChild(document.createElement("style"));
+        function openMenu(){
+        var d = document.getElementsByClassName('wrapper');
+        d[0].style.transform='TranslateX(320px)';
+        d[0].style.position='fixed';
+        styleElem.innerHTML = ".wrapper:before {visibility:visible;opacity:1;}";
+        // d[0].onclick = closeMenu;
+        }
+        function closeMenu() {
+        var d = document.getElementsByClassName('wrapper');
+        d[0].style.position='relative';
+        styleElem.innerHTML = ".wrapper:before {visibility:hidden;opacity:0;}";
+        d[0].style.transform='';  
+        }
+        function menuLang() {
+            var button = document.getElementsByClassName('link-underlined js-nav-menu');
+            var links = document.getElementById('menu-main');
+            var langs = document.getElementById('menu-lang');
+            if(button[0].innerHTML=='English'){
+                links.classList.remove('active');
+                langs.classList.add('active');
+                button[0].innerHTML='BACK';
+            }else{
+                links.classList.add('active');
+                langs.classList.remove('active');
+                button[0].innerHTML='English';
+            }
+        }
+        function sayla(){
+            console.log(durum)
+            openMenu()
+            // if(durum%2==1){
+            //     closeMenu();
+                
+            // }else{
+            //     openMenu()
+            // };
+            durum=durum+1;
+        }
+        </script>
+
+<div class="box-filters fixed seo" id="box-filters-fixed" onclick='closeMenu()'>
+    <div class="container">
+        <div class="box-left">
+            <ul class="menu-filters js-filters-new">
+                <li class="item dropdown" id='1st'>
+                    <a href="{% url 'shopping' %}"><div class="leftbar" >Harytlar</div></a>                                      
+                </li>
+                <li class="item dropdown" id='2nd'>
+                    <a href="{% url 'learn_word' %}"><div class="leftbar">Haryt gos</div></a>                                   
+                </li>
+                   
+            </ul>
+        </div>
+            </div>
+    </div>
+            <section id="content" class="" onclick="closeMenu()">
+            <div style='float:left; width:80%'>
+<div class="container2" style="background-color: #c2cbed;
+            width: 100%;
+            height: auto;
+            position: relative; 
+            margin:auto;
+            top:0vh;
+            padding:20px;
+            border-radius: 25px;
+            box-shadow: 0 0 10px black;
+            float:center;
+            text-align:center;
+            ">
+
+{% block content %}
+
+{% endblock content %}
+
+</div>
+</div>
+
+<div style='float:right; width:20%; border-left:1px solid grey' id='left_ads'>
+
+<script type="text/javascript">
+    res = fetch("{% url 'get_left_ads' %}")
+        .then(res => res.json())
+        .then(data => {
+            let a
+            data.forEach(key => {
+                a = `<a href=`+key.link+`><img src=`+key.image+`></a>`;
+                document.getElementById('left_ads').innerHTML = a; 
+            })
+        })
+</script>
+
+</div></div>
+
+</section>
+<footer id="footer" style='height:30px'>
+    <div class="box-top">
+        <div class="inner">
+            <div class="box-left">
+                <p class="follow">
+                    <strong>Follow us</strong>
+                    <a class="text-black" rel="noopener" href="#">Facebook</a>
+                    <a class="text-black" rel="noopener" href="#">Youtube</a>
+                    <a class="text-black" rel="noopener" href="#">Instagram</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</footer>
+
+</body>
+
+</html>
