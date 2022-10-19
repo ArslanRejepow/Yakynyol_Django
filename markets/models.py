@@ -39,13 +39,13 @@ class Category(models.Model):
 # Create your models here.
 
 class Market(models.Model):
-    user = models.ForeignKey("users.User", on_delete=models.CASCADE, related_name = 'market')
+    user = models.OneToOneField("users.User", on_delete=models.CASCADE, primary_key = True)
     image_1 = models.ImageField(upload_to='images')
     image_2 = models.ImageField(upload_to = 'images')
     region = models.CharField(max_length=50, choices = ETRAP_CHOICES)
     reg = models.CharField(max_length=50, choices = REG_CHOICES)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    code = models.CharField(max_length=200)
+    code = models.CharField(max_length=100)
     name = models.CharField(max_length=400)
     warning = models.TextField()
     place = models.CharField(max_length=50)
@@ -59,4 +59,20 @@ class Market(models.Model):
     def __str__(self):
         return self.name
 
+class Product(models.Model):
+    market = models.ForeignKey(Market, on_delete=models.CASCADE, related_name = 'products')
 
+    name = models.CharField(max_length=400)
+    price = models.CharField(max_length=200)
+    about = models.TextField()
+    image_1 = models.ImageField(upload_to='images')
+    image_2 = models.ImageField(upload_to='images')
+    image_3 = models.ImageField(upload_to='images')    
+    date = models.DateField(auto_now=True)
+
+    class Meta:
+        verbose_name = ("Haryt")
+        verbose_name_plural = ("Harytlar")
+
+    def __str__(self):
+        return self.name

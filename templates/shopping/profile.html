@@ -1,0 +1,123 @@
+{% extends 'shopping/base.html' %}
+
+{% block content %}
+
+<div class="alert-warning">{{user.market.warning}}</div>
+  {% for item in user.market.products.all %}
+
+  <div class="all_products">
+    <div id="{{item.pk}}" style='border:1px solid black;margin-bottom:20px;border-radius:5px;padding:5px;height:200px;text-size:16px; overflow:hidden'> <li style='text-align:center'>
+      <img src="{{item.image_1.url}}" class="{{item.pk}}" style='float:left;height:200px;'>
+      <a href="{% url 'delete_product' item.pk %}" class='btn btn-danger text-white' style='float:right'>Poz</a>
+      <a href="{% url 'update_product_view' item.pk %}" class='btn btn-warning text-white' style='float:right'>Düzet</a>
+      <div class="{{item.pk}}" style='display:none'>
+      <div class='slideshow-container'>
+
+  <div class='fade {{item.pk}}'>
+  <div class='numbertext'>1 / 3</div>
+  <img src="{{item.image_1.url}}" class='img'>
+  </div>
+  <div id="myModal" class="modal">
+
+  <span class="close">&times;</span>
+
+  <img class="modal-content" id="img01">
+
+  <div id="caption"></div>
+  </div>
+
+  <div class="fade {{item.pk}}" style='display:none'>
+  <div class='numbertext'>2 / 3</div>
+  <img src="{{item.image_2.url}}" class='img'>
+  </div>
+
+  <div class="fade {{item.pk}}"style='display:none'>
+  <div class='numbertext'>3 / 3</div>
+  <img src="{{item.image_3.url}}" class='img'>
+  </div>
+
+  <a class='prev' onclick="plusSlides2({{item.pk}},-1)">&#10094;</a>
+  <a class='next' style='background-color:black' onclick="plusSlides2({{item.pk}},1)">&#10095;</a>
+
+  </div>
+  <br>
+
+  <div style='text-align:center'>
+  <span class='dot' onclick='currentSlide(1)'></span> 
+  <span class='dot' onclick='currentSlide(2)'></span> 
+  <span class='dot' onclick='currentSlide(3)'></span> 
+  </div>
+      
+      </div>
+      <h3>Ady: {{item.name}}</h3>
+      <h4>Bahasy: {{item.price}} manat</h4>
+      <h5>Kategoriyasy: {{item.market.category}}</h5>
+      <h5>Maglumat: {{item.about}}</h5>
+      <h5>Goşulan wagty: {{item.date}}</h5>
+      <hr>
+      <h6>"{{item.market.name}}"   "{{item.market.number}}"   "{{item.market.code}}")</h6>
+      </div>
+      </li>
+      <button id='button' class='button {{item.pk}}' style='border-radius:10px; height:30px; line-height:0px;margin:auto; margin-top:-10px; margin-bottom:20px; width:80%;' onclick='uytget({{item.pk}})'>Doly gorkez</button>        
+
+</div>
+{% endfor %}
+
+<script>
+        durum=3;
+        durum2=0;
+        function uytget(n) {
+            if (durum%2==1) {
+              var button=document.getElementsByClassName(n);
+              button[0].style.display='none';
+              button[1].style.display='block';
+              button[5].innerHTML='Gizle';
+            var div=document.getElementById(n);
+            div.style.height='auto';
+            durum=durum+1;
+            durum2=n;
+            }else if(durum%2==0) {
+              var button=document.getElementsByClassName(n);
+              button[0].style.display='inline';
+              button[1].style.display='none';
+              button[5].innerHTML='Doly görkez';
+            var div=document.getElementById(n);
+            div.style.height='200px';
+            durum=durum+1;
+            }
+            }
+            var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides2(k,n) {
+  durum2=k;
+  plusSlides(n);
+}
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides2 = document.getElementsByClassName(durum2);
+  var slides=[];slides.push(slides2[2]);slides.push(slides2[3]);slides.push(slides2[4]);
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";  
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+}
+  </script>
+
+{% endblock content %}

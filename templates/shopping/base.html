@@ -18,6 +18,7 @@
         <link rel='stylesheet' href="{% static 'css/login-style.css' %}">
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <link rel="stylesheet" href="{% static 'css/mobile-style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/slide.css' %}">
 
 
         <link href="{% static 'dist/css/lib/bootstrap.min.css' %}" type="text/css" rel="stylesheet">
@@ -165,10 +166,14 @@
                 <li class="item dropdown" id='1st'>
                     <a href="{% url 'shopping' %}"><div class="leftbar" >Harytlar</div></a>                                      
                 </li>
-                <li class="item dropdown" id='2nd'>
-                    <a href="{% url 'learn_word' %}"><div class="leftbar">Haryt gos</div></a>                                   
-                </li>
-                   
+                {% if user.market %}
+                    <li class="item" id='2nd'>
+                        <a href="{% url 'add_product' %}"><div class="leftbar">Haryt gos</div></a>                                   
+                    </li>
+                    <li class="item" id='3rd'>
+                        <a href="{% url 'profile_market' %}"><div class="leftbar">Profil</div></a>                                   
+                    </li>
+                {% endif %}
             </ul>
         </div>
             </div>

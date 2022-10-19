@@ -1,0 +1,20 @@
+{% extends 'shopping/base.html' %}
+
+{% block content %}
+
+<form class="form-group" action="{% url 'add_product' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h1>Haryt gos</h1>
+    <h3>Ady:</h3>
+    <input class="form-control" type="text" name="name">
+    <h3>Bahasy:</h3>
+    <input type="text" name="price" class="form-control">
+    <h3>Maglumaty</h3>
+    <textarea class="form-control" name="about"></textarea><br>
+    <input type="file" name="image_1" class="form-control">
+    <input type="file" name="image_2" class="form-control">
+    <input type="file" name="image_3" class="form-control">
+    <button class="btn btn-primary" type="submit">Gos</button>
+</form>
+
+{% endblock content %}
