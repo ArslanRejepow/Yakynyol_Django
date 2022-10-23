@@ -5,8 +5,11 @@ from .forms import ProductForm
 
 # Create your views here.
 def home(request):
-
-    return render(request, 'shopping/home.html')
+    products = Product.objects.all()
+    context = {
+        'products' : products
+    }
+    return render(request, 'shopping/home.html', context = context)
 
 
 def add_product(request):

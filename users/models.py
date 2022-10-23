@@ -13,11 +13,12 @@ VELAYAT_CHOICES = (
 )
 
 class User(AbstractUser):
-    username = models.CharField(max_length=30, unique=True)
-    mobile_no = models.CharField(max_length=15)
-    velayat = models.CharField(max_length=10, choices=VELAYAT_CHOICES,)
-    isActive = models.BooleanField(default = True)
-    isComment = models.BooleanField(default = True)
+    username = models.CharField(max_length=30, unique=True, verbose_name='Ulanyjy ady')
+    mobile_no = models.CharField(max_length=15, verbose_name='Telefon Nomeri')
+    velayat = models.CharField(max_length=10, choices=VELAYAT_CHOICES, verbose_name='Welayat')
+    isComment = models.BooleanField(default = True, verbose_name='Kommentariya Yazsynmy')
 
     class Meta(AbstractUser.Meta):
-       swappable = 'AUTH_USER_MODEL'
+        swappable = 'AUTH_USER_MODEL'
+        verbose_name = "Ulanyjy"
+        verbose_name_plural = "Ulanyjylar"

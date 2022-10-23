@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.html import mark_safe
 ETRAP_CHOICES = (
     ('yaslyk','Ýaşlyk'),('akbugday','Ak bugdaý'),('baherden','Bäherden'),
     ('babadayhan','Babadaýhan'),('gokdepe','Gökdepe'),('kaka','Kaka'),
@@ -27,8 +28,8 @@ REG_CHOICES = (
 )
 
 class Category(models.Model):
-    name = models.CharField(max_length=200)
-    un = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, verbose_name = 'Ady')
+    un = models.CharField(max_length=200, verbose_name = 'Id')
 
     class Meta:
         verbose_name = ("Kategoriya")
@@ -39,19 +40,31 @@ class Category(models.Model):
 # Create your models here.
 
 class Market(models.Model):
-    user = models.OneToOneField("users.User", on_delete=models.CASCADE, primary_key = True)
-    image_1 = models.ImageField(upload_to='images')
-    image_2 = models.ImageField(upload_to = 'images')
-    region = models.CharField(max_length=50, choices = ETRAP_CHOICES)
-    reg = models.CharField(max_length=50, choices = REG_CHOICES)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    code = models.CharField(max_length=100)
-    name = models.CharField(max_length=400)
-    warning = models.TextField()
-    place = models.CharField(max_length=50)
-    date = models.DateField(auto_now=False, auto_now_add=False)
-    about = models.TextField()
+    user = models.OneToOneField("users.User", on_delete=models.CASCADE, primary_key = True, verbose_name = 'Ulanyjy')
+    image_1 = models.ImageField(upload_to='images', verbose_name = 'Surat 1')
+    image_2 = models.ImageField(upload_to = 'images', verbose_name = 'Surat2')
+    region = models.CharField(max_length=50, choices = ETRAP_CHOICES, verbose_name = 'Etraby')
+    reg = models.CharField(max_length=50, choices = REG_CHOICES, verbose_name = 'Registrasiya nomeri')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name = 'Kategoriya')
+    code = models.CharField(max_length=100, verbose_name = 'Market Kody')
+    phone_number = models.CharField(max_length = 200, verbose_name = 'Telefon Nomeri')
+    name = models.CharField(max_length=400, verbose_name = 'Ady')
+    warning = models.TextField(verbose_name = 'Duýduryş tekksti')
+    place = models.CharField(max_length=50, verbose_name = 'Ýeri')
+    date = models.DateField(auto_now=False, auto_now_add=False, verbose_name = 'Senesi')
+    about = models.TextField(verbose_name = 'Hakynda')
 
+    def image_tag1(self):
+        return mark_safe('<img src="%s" width="150" height="150" />' % (self.image_1.url))
+
+    def image_tag2(self):
+    	return mark_safe('<img src="%s" width="150" height="150" />' % (self.image_2.url))
+        
+    image_tag2.short_description = 'Surat 2'
+    image_tag2.allow_tags = True
+
+    image_tag1.short_description = 'Surat 1'
+    image_tag1.allow_tags = True
     class Meta:
         verbose_name = ("Market")
         verbose_name_plural = ("Marketler")
@@ -60,16 +73,31 @@ class Market(models.Model):
         return self.name
 
 class Product(models.Model):
-    market = models.ForeignKey(Market, on_delete=models.CASCADE, related_name = 'products')
+    market = models.ForeignKey(Market, on_delete=models.CASCADE, related_name = 'products', verbose_name = 'Market')
 
-    name = models.CharField(max_length=400)
-    price = models.CharField(max_length=200)
-    about = models.TextField()
-    image_1 = models.ImageField(upload_to='images')
-    image_2 = models.ImageField(upload_to='images')
-    image_3 = models.ImageField(upload_to='images')    
-    date = models.DateField(auto_now=True)
+    name = models.CharField(max_length=400, verbose_name = 'Ady')
+    price = models.CharField(max_length=200, verbose_name = 'Bahasy')
+    about = models.TextField(verbose_name = 'Hakynda')
+    image_1 = models.ImageField(upload_to='images', verbose_name = 'Surat 1')
+    image_2 = models.ImageField(upload_to='images', verbose_name = 'Surat 2')
+    image_3 = models.ImageField(upload_to='images', verbose_name = 'Surat 3')    
+    date = models.DateField(auto_now=True, verbose_name = 'Senesii')
+    def image_tag1(self):
+        return mark_safe('<img src="%s" width="150" height="150" />' % (self.image_1.url))
+    def image_tag2(self):
+        return mark_safe('<img src="%s" width="150" height="150" />' % (self.image_2.url))
 
+    def image_tag3(self):
+    	return mark_safe('<img src="%s" width="150" height="150" />' % (self.image_3.url))
+
+    image_tag2.short_description = 'Surat 2'
+    image_tag2.allow_tags = True
+
+    image_tag1.short_description = 'Surat 1'
+    image_tag1.allow_tags = True
+
+    image_tag3.short_description = 'Surat3'
+    image_tag3.allow_tags = True
     class Meta:
         verbose_name = ("Haryt")
         verbose_name_plural = ("Harytlar")
