@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from .models import Word, Dialog, Text, Comment
 from setting.models import Lesson
 from users.models import User
-from django.template.defaulttags import register
-
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 
 def text(request):
 	if request.method == "GET":
@@ -40,9 +40,9 @@ def get_word_context(request):
 	if request.method == "POST":
 		if request.POST.get('comment_id'): replied_comment = request.POST.get('comment_id')
 		try:
-		    comment_object = Comment.objects.get(pk=replied_comment)
-		except:
-		    comment_object = None
+			comment_object = Comment.objects.get(pk=replied_comment)
+		except:		
+			comment_object = None
 		user_ = User.objects.get(pk = request.user.pk)
 		
 		comment = Comment(body = request.POST.get('comment'), user = user_, lesson= lesson, reply_to=comment_object)
@@ -67,9 +67,9 @@ def get_dialog_context(request):
 	if request.method == "POST":
 		if request.POST.get('comment_id'): replied_comment = request.POST.get('comment_id')
 		try:
-		    comment_object = Comment.objects.get(pk=replied_comment)
+			comment_object = Comment.objects.get(pk=replied_comment)
 		except:
-		    comment_object = None
+			comment_object = None
 		user_ = User.objects.get(pk = request.user.pk)
 		
 		comment = Comment(body = request.POST.get('comment'), user = user_, lesson= lesson, reply_to=comment_object)
@@ -113,3 +113,10 @@ def dialog_test_another(request):
 def dialog_test_turkmen(request):
 	context = get_dialog_context(request)
 	return render(request, 'lesson/dialog_test_turkmen.html', context = context)
+
+@csrf_exempt
+def api_add_word(request):
+	lesson_name = request.POST.get('lesson')
+	print(lesson_name)
+
+	return HttpResponse("OK")
