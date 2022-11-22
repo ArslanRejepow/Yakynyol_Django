@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import home, add_product, profile, update_product_view, update_product, delete_product
+from .views import add_to_favourites, home, add_product, profile, update_product_view, update_product, delete_product
 
 urlpatterns = [
     path('', home, name='shopping'),
@@ -8,4 +8,5 @@ urlpatterns = [
     path('update_product/<str:pk>', update_product_view, name='update_product_view'),
     path('update_pro', update_product, name='update_product'),
     path("delete_product/<str:pk>", delete_product, name="delete_product"),
+    path("add_to_favourites_product", add_to_favourites, name='add_to_favourites_product')
 ]

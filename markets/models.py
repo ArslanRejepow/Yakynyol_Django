@@ -104,3 +104,8 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+class Favourite(models.Model):
+    user = models.ForeignKey("users.User", on_delete = models.CASCADE)
+    product = models.ForeignKey(Product, on_delete= models.CASCADE)
+    

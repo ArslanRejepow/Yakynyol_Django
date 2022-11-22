@@ -1,4 +1,5 @@
 {% extends 'shopping/base.html' %}
+{% load split_tag %}
 
 {% block content %}
 
@@ -20,8 +21,6 @@
     <input type="submit" value='Gözle' class='button' style='height:30px;line-height:0px;width: 20%;border-radius:10px;padding-left:10px;'>
 </form>
 
-<?php $categories = mysqli_query($conn, "SELECT * FROM categories"); ?>
-
 <div class="form-group row">
   <h6>Welayaty</h6>
   <div class="col-lg-3">
@@ -38,9 +37,9 @@
   <div class="col-lg-2">
 	<select class="form-control" id='category'>
 		<option>Hemmesi</option>
-	<?php while($item = mysqli_fetch_array($categories)){ ?>
-		<option><?php echo $item['name']; ?></option>
-	<?php } ?>
+{% for category in categories %}
+		<option>{{category.name}}</option>
+{% endfor %}
 	</select>
   </div>Bahasy
   <div class="col-lg-3 input-group p-1">
@@ -57,29 +56,56 @@
 <script>
     data = [];
     {% for product in products %}
+        velayats = ['hemmesi'];
+        {% for velayat in product.market.place|get_velayats %}
+            velayats.push("{{velayat}}");
+        {% endfor %}
         item = {}
         item['id'] = "{{product.pk}}"
         item['name'] = "{{product.name}}";
         item['price'] = "{{product.price}}";
         item['about'] = "{{product.about}}";
-        item['category'] = "{{product.category}}";
+        item['category'] = ['Hemmesi', "{{product.market.category}}"];
         item['date'] = "{{product.date}}"
         item['pic1'] = "{{product.image_1.url}}";
         item['pic2'] = "{{product.image_2.url}}";
         item['pic3'] = "{{product.image_3.url}}";
-        item['market_name'] = "{{product.market.name}}"
-        item['number'] = "{{product.market.phone_number}}"        
+        item['market_name'] = "{{product.market.name}}";
+        item['number'] = "{{product.market.phone_number}}"; 
+        item['market_code'] = "{{product.market.code}}"  
+        item['velayat'] = velayats;     
         data.push(item);
     {% endfor %}
 
 </script>
 
-<script>
-{% comment %} favourites =  {% endcomment %}
-</script>
-
 <div class="all_products">
 </div>
+
+<script>
+  favourites = [];
+  {%for fav in favourites%}
+  elayats = ['hemmesi'];
+        {% for velayat in fav.product.market.place|get_velayats %}
+            velayats.push("{{velayat}}");
+        {% endfor %}
+        item = {}
+        item['id'] = "{{fav.product.pk}}"
+        item['name'] = "{{fav.product.name}}";
+        item['price'] = "{{fav.product.price}}";
+        item['about'] = "{{fav.product.about}}";
+        item['category'] = ['Hemmesi', "{{fav.product.market.category}}"];
+        item['date'] = "{{fav.product.date}}"
+        item['pic1'] = "{{fav.product.image_1.url}}";
+        item['pic2'] = "{{fav.product.image_2.url}}";
+        item['pic3'] = "{{fav.product.image_3.url}}";
+        item['market_name'] = "{{fav.product.market.name}}";
+        item['number'] = "{{fav.product.market.phone_number}}"; 
+        item['market_code'] = "{{fav.product.market.code}}"  
+        item['velayat'] = velayats;     
+        favourites.push(item);
+  {% endfor %}
+</script>
 
     <script>
         durum=3;
@@ -162,7 +188,7 @@ function filter(){
 		max_price = 10000000;
 	}
 	vel = document.getElementById('velayat').value.toLowerCase();
-	cat = document.getElementById('category').value.toLowerCase();
+	cat = document.getElementById('category').value;
 	showItemsFiltered();
 	
 }
@@ -174,7 +200,7 @@ function showItemsFiltered() {//Default grid to show all items on page load in
         if (data[i]['price'] <= max_price && data[i]['price'] >= min_price && data[i]['velayat'].indexOf(vel) > -1 && data[i]['category'].indexOf(cat) > -1) {
         let item_content = `<div id=`+data[i]['id']+` style='border:1px solid black;margin-bottom:20px;border-radius:5px;padding:5px;height:200px;text-size:16px; overflow:hidden'> <li style='text-align:center'>
         <img src=`+data[i]['pic1']+` class=`+data[i]['id']+` style='float:left; height:200px;'>
-        <button class='btn btn-primary' style='float:right'>Halanlaryma gos </button>
+        <a class='btn btn-primary' href='{% url 'add_to_favourites_product'%}/`+data[i]['id']+`' style='float:right'>Halanlaryma gos </a>
         
         <div class=`+data[i]['id']+` style='display:none'>
         <div class='slideshow-container'>
@@ -237,10 +263,8 @@ function showAllItems() {//Default grid to show all items on page load in
         categor = data[i]['category']
         let item_content = `<div id=`+data[i]['id']+` style='border:1px solid black;margin-bottom:20px;border-radius:5px;padding:5px;height:200px;text-size:16px; overflow:hidden'> <li style='text-align:center'>
         <img src=`+data[i]['pic1']+` class=`+data[i]['id']+` style='float:left;height:200px;'>
-        <?php if(isset($_SESSION['username']) ){ ?>
-        <a href='scripts/add_to_favourites.php?id=`+data[i]['id']+`?type=1' class='btn btn-primary text-white' style='float:right'>Halanlaryma gos </a>
-<?php } ?>
-        
+          <a class='btn btn-primary' href='{% url 'add_to_favourites_product'%}?id=`+data[i]['id']+`' style='float:right'>Halanlaryma gos </a>
+         
         <div class=`+data[i]['id']+` style='display:none'>
         <div class='slideshow-container'>
 

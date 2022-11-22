@@ -1,16 +1,28 @@
 from django.shortcuts import render, redirect
 from users.models import User
-from .models import Product, Market
-from .forms import ProductForm
+from .models import Category, Favourite, Product, Market
+from .forms import FavouriteForm, ProductForm
 
 # Create your views here.
 def home(request):
     products = Product.objects.all()
+    categories = Category.objects.all()
     context = {
-        'products' : products
+        'products' : products,
+        'categories' : categories,
     }
+    # print(request.user)
+    if request.user.id:
+        favourites = Favourite.objects.filter(user=request.user)
+        context['favourites'] = favourites
+        
     return render(request, 'shopping/home.html', context = context)
 
+def profile(request):
+    return render(request, 'shopping/profile.html')
+
+
+##### ADD Views #####
 
 def add_product(request):
     tempdict = request.POST.copy()
@@ -29,9 +41,14 @@ def add_product(request):
 
     return render(request, "shopping/add_product.html")
 
-def profile(request):
-    
-    return render(request, 'shopping/profile.html')
+def add_to_favourites(request):
+    id = request.GET.get('id')
+    obj = {'user': request.user, "product": Product.objects.get(pk = id)}
+    model = FavouriteForm(obj)
+    model.save()
+    return redirect('shopping')
+
+##### UPDATE PRODUCT VIEWS #####
 
 def update_product_view(request, pk):
     product = Product.objects.get(pk = pk)
@@ -55,6 +72,9 @@ def update_product(request):
     product.save()
     print(product.image_2)
     return redirect('profile_market')
+
+
+##### DELETE VIEWS #####
 
 def delete_product(request, pk):
     instance = Product.objects.get(pk=pk)
