@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import about, about_english, about_russian, about_chinese, about_turkish, get_left_ads
+from .views import about, about_english, about_russian, about_chinese, about_turkish
 
 urlpatterns = [
 	path('',about, name='about'),
@@ -7,5 +7,4 @@ urlpatterns = [
 	path('about_russian',about_russian, name='about_russian'),
 	path('about_chinese',about_chinese, name='about_chinese'),
 	path('about_turkish',about_turkish, name='about_turkish'),
-	path('get_left_ads', get_left_ads, name='get_left_ads'),
 ]

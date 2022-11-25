@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.auth',
+    'api.apps.ApiConfig',
     'markets.apps.MarketsConfig',
     'notices.apps.NoticesConfig',
     'breaktime.apps.BreaktimeConfig',
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

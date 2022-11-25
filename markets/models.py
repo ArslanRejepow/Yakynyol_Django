@@ -58,12 +58,11 @@ class Market(models.Model):
         return mark_safe('<img src="%s" width="150" height="150" />' % (self.image_1.url))
 
     def image_tag2(self):
-    	return mark_safe('<img src="%s" width="150" height="150" />' % (self.image_2.url))
-        
+        return mark_safe('<img src="%s" width="150" height="150" />' % (self.image_2.url))
     image_tag2.short_description = 'Surat 2'
     image_tag2.allow_tags = True
 
-    image_tag1.short_description = 'Surat 1'
+    image_tag1.short_description = 'Surat 1'    
     image_tag1.allow_tags = True
     class Meta:
         verbose_name = ("Market")
@@ -88,7 +87,7 @@ class Product(models.Model):
         return mark_safe('<img src="%s" width="150" height="150" />' % (self.image_2.url))
 
     def image_tag3(self):
-    	return mark_safe('<img src="%s" width="150" height="150" />' % (self.image_3.url))
+        return mark_safe('<img src="%s" width="150" height="150" />' % (self.image_3.url))
 
     image_tag2.short_description = 'Surat 2'
     image_tag2.allow_tags = True

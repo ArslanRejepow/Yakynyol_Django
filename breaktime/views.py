@@ -9,10 +9,9 @@ def add_comment(request, uri):
 	if request.method == "POST":
 		if request.POST.get('comment_id'): replied_comment = request.POST.get('comment_id')
 		try:
-		    comment_object = Comment_for_Content.objects.get(pk=replied_comment)
+			comment_object = Comment_for_Content.objects.get(pk=replied_comment)
 		except:
-		    comment_object = None
-		
+			comment_object = None
 		user_ = User.objects.get(pk = request.user.pk)
 		content = Content.objects.get(pk =request.POST.get('content_id'))
 
@@ -127,3 +126,5 @@ def add_to_favorites(request, pk, uri):
 def favorites(request):
 
 	return render(request, 'break/favorites.html')
+
+

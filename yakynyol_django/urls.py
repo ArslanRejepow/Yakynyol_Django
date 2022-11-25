@@ -23,6 +23,7 @@ urlpatterns = [
     path('notices/', include('notices.urls')),
     path('break/', include('breaktime.urls')),
     path('lesson/', include('lesson.urls')),
+    path('api/', include('api.urls')),
     path('', include('base.urls')),
     path('settings/', include('setting.urls')),
     path('admin/', admin.site.urls),
