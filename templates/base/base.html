@@ -42,8 +42,8 @@
             <li><a href="{% url 'break' %}" class="item">Arakesme</a></li>
             <li><a href="{% url 'notices' %}" class="item">Bildirişler</a></li>
             <li>
-                <a href="#" class="item">
-                    (Goşmaça)</a>
+                <a href="{%url 'shopping'%}" class="item">
+                    Söwda</a>
             </li>
             
         </ul>
@@ -194,7 +194,7 @@
 
 <div style='float:right; width:20%; border-left:1px solid grey' id='left_ads'>
 
-<script type="text/javascript">
+{% comment %} <script type="text/javascript">
     res = fetch("{% url 'get_left_ads' %}")
         .then(res => res.json())
         .then(data => {
@@ -204,7 +204,7 @@
                 document.getElementById('left_ads').innerHTML = a; 
             })
         })
-</script>
+</script> {% endcomment %}
 
 </div></div>
 

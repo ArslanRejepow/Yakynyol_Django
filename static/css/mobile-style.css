@@ -1,135 +1,144 @@
-.buttonn{
-    margin-bottom:10px;
-    line-height:0px;
-    height:35px;
-    font-size:20px;
-    width:50%;
+.buttonn {
+  margin-bottom: 10px;
+  line-height: 0px;
+  height: 35px;
+  font-size: 20px;
+  width: 50%;
 }
-#divv{
-    margin-top:10px;
-    text-align:center;
-    border:1px solid green;
-    border-radius:10px;
-    font-size:25px
+#divv {
+  margin-top: 10px;
+  text-align: center;
+  border: 1px solid green;
+  border-radius: 10px;
+  font-size: 25px;
 }
-#registerhref{
-    margin-right:20px;
-    display:none;
+#registerhref {
+  margin-right: 20px;
+  display: none;
 }
-.searchdiv{
-    display:block;}
-p#sapaklar{
-    float:right;
+.searchdiv {
+  display: block;
+}
+p#sapaklar {
+  float: right;
+}
+.fade {
+  opacity: 100% !important;
+}
+.container {
+  margin: 0 !important;
 }
 
-
-@media screen and (max-width:600px) {
-    .buttonn{
-        height:50px;
-        font-size:1rem;
-        width:90%;
-    }
-    #divv{
-        margin-top:0px;
-    }
-    .searchdiv{
-        display:block;
-        margin-left:13%;
-        margin-right:25%;
-    }
-    #sapaklar{
-        display: none;
-    }
-    #registerhref{
-        display:inline;
-    }
-
+@media screen and (max-width: 600px) {
+  .buttonn {
+    height: 50px;
+    font-size: 1rem;
+    width: 90%;
+  }
+  #divv {
+    margin-top: 0px;
+  }
+  .searchdiv {
+    display: block;
+    margin-left: 13%;
+    margin-right: 25%;
+  }
+  #sapaklar {
+    display: none;
+  }
+  #registerhref {
+    display: inline;
+  }
 }
 
 .pagination {
-    display: inline-block;
-  }
-  
-  .pagination a {
-    color: black;
-    float: left;
-    padding: 8px 16px;
-    text-decoration: none;
-    transition: background-color .3s;
-    border: 1px solid #ddd;
-  }
-  
-  .pagination a.active {
-    background-color: #4CAF50;
-    color: white;
-    border: 1px solid #4CAF50;
-  }
-  
-  .pagination a:hover:not(.active) {background-color: #ddd;}.buttonn{
-    margin-bottom:10px;
-    line-height:0px;
-    height:35px;
-    font-size:20px;
-    width:50%;
-}
-#divv{
-    margin-top:10px;
-    text-align:center;
-    border:1px solid green;
-    border-radius:10px;
-    font-size:25px
-}
-#registerhref{
-    margin-right:20px;
-    display:none;
-}
-.searchdiv{
-    display:block;}
-p#sapaklar{
-    float:right;
+  display: inline-block;
 }
 
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  border: 1px solid #ddd;
+}
 
-@media screen and (max-width:600px) {
-    .buttonn{
-        height:50px;
-        font-size:1rem;
-        width:90%;
-    }
-    #divv{
-        margin-top:0px;
-    }
-    .searchdiv{
-        display:block;
-        margin-left:13%;
-        margin-right:25%;
-    }
-    #sapaklar{
-        display: none;
-    }
-    #registerhref{
-        display:inline;
-    }
+.pagination a.active {
+  background-color: #4caf50;
+  color: white;
+  border: 1px solid #4caf50;
+}
 
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+}
+.buttonn {
+  margin-bottom: 10px;
+  line-height: 0px;
+  height: 35px;
+  font-size: 20px;
+  width: 50%;
+}
+#divv {
+  margin-top: 10px;
+  text-align: center;
+  border: 1px solid green;
+  border-radius: 10px;
+  font-size: 25px;
+}
+#registerhref {
+  margin-right: 20px;
+  display: none;
+}
+.searchdiv {
+  display: block;
+}
+p#sapaklar {
+  float: right;
+}
+
+@media screen and (max-width: 600px) {
+  .buttonn {
+    height: 50px;
+    font-size: 1rem;
+    width: 90%;
+  }
+  #divv {
+    margin-top: 0px;
+  }
+  .searchdiv {
+    display: block;
+    margin-left: 13%;
+    margin-right: 25%;
+  }
+  #sapaklar {
+    display: none;
+  }
+  #registerhref {
+    display: inline;
+  }
 }
 
 .pagination {
-    display: inline-block;
-  }
-  
-  .pagination a {
-    color: black;
-    float: left;
-    padding: 8px 16px;
-    text-decoration: none;
-    transition: background-color .3s;
-    border: 1px solid #ddd;
-  }
-  
-  .pagination a.active {
-    background-color: #4CAF50;
-    color: white;
-    border: 1px solid #4CAF50;
-  }
-  
-  .pagination a:hover:not(.active) {background-color: #ddd;}
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  border: 1px solid #ddd;
+}
+
+.pagination a.active {
+  background-color: #4caf50;
+  color: white;
+  border: 1px solid #4caf50;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+}

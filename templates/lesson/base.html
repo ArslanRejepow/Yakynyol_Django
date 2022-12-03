@@ -56,8 +56,8 @@
             <li><a href="{% url 'break' %}" class="item">Arakesme</a></li>
             <li><a href="{% url 'notices' %}" class="item">Bildirişler</a></li>
             <li>
-                <a href="#" class="item">
-                    (Goşmaça)</a>
+                <a href="{% url 'shopping' %}" class="item">
+                    Söwda</a>
             </li>
             
         </ul>
@@ -194,7 +194,7 @@
             </div>
     </div>
             <section id="content" class="" onclick="closeMenu()">
-            <div style='float:left; width:80%'>
+            <div style='float:left; width:100%'>
 <div class="container2" style="background-color: #c2cbed;
             width: 100%;
             height: auto;
@@ -202,6 +202,7 @@
             margin:auto;
             top:0vh;
             padding:20px;
+            padding-bottom: 1px;
             border-radius: 25px;
             box-shadow: 0 0 10px black;
             float:center;
@@ -214,22 +215,7 @@
 
 </div>
 </div>
-
-<div style='float:right; width:20%; border-left:1px solid grey' id='left_ads'>
-
-<script type="text/javascript">
-    res = fetch("{% url 'get_left_ads' %}")
-        .then(res => res.json())
-        .then(data => {
-            let a
-            data.forEach(key => {
-                a = `<a href=`+key.link+`><img src=`+key.image+`></a>`;
-                document.getElementById('left_ads').innerHTML = a; 
-            })
-        })
-</script>
-
-</div></div>
+</div>
 
 </section>
 <footer id="footer" style='height:30px'>

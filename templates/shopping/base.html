@@ -164,6 +164,9 @@
                 <li class="item dropdown" id='1st'>
                     <a href="{% url 'shopping' %}"><div class="leftbar" >Harytlar</div></a>                                      
                 </li>
+                <li class="item dropdown" id='1st'>
+                    <a href="{% url 'services' %}"><div class="leftbar" >Hyzmatlar</div></a>                                      
+                </li>
                 {% if user.market %}
                     <li class="item" id='2nd'>
                         <a href="{% url 'add_product' %}"><div class="leftbar">Haryt gos</div></a>                                   
@@ -200,7 +203,7 @@
 
 <div style='float:right; width:20%; border-left:1px solid grey' id='left_ads'>
 
-<script type="text/javascript">
+{% comment %} <script type="text/javascript">
     res = fetch("{% url 'get_left_ads' %}")
         .then(res => res.json())
         .then(data => {
@@ -210,7 +213,7 @@
                 document.getElementById('left_ads').innerHTML = a; 
             })
         })
-</script>
+</script> {% endcomment %}
 
 
 </div></div>
