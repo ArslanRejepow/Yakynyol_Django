@@ -167,12 +167,20 @@
                 <li class="item dropdown" id='1st'>
                     <a href="{% url 'services' %}"><div class="leftbar" >Hyzmatlar</div></a>                                      
                 </li>
-                {% if user.market %}
+                {% if user.market.reg == 'market' %}
                     <li class="item" id='2nd'>
                         <a href="{% url 'add_product' %}"><div class="leftbar">Haryt gos</div></a>                                   
                     </li>
                     <li class="item" id='3rd'>
                         <a href="{% url 'profile_market' %}"><div class="leftbar">Profil</div></a>                                   
+                    </li>
+                {% endif %}
+                {% if user.market.reg == 'service' %}
+                    <li class="item" id='2nd'>
+                        <a href="{% url 'add_service' %}"><div class="leftbar">Haryt gos</div></a>                                   
+                    </li>
+                    <li class="item" id='3rd'>
+                        <a href="{% url 'profile_service' %}"><div class="leftbar">Profil</div></a>                                   
                     </li>
                 {% endif %}
             </ul>
