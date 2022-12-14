@@ -40,7 +40,7 @@
             <li><a href="{% url 'login' %}" class="item">Sazlamalar</a></li>
             <li><a href="{% url 'text' %}" class="item">Sapak</a></li>
             <li><a href="{% url 'break' %}" class="item">Arakesme</a></li>
-            <li><a href="{% url 'notices' %}" class="item">Bildirişler</a></li>
+            <li><a href="{% url 'notices' %}" class="item">Hemaýatçylar</a></li>
             <li>
                 <a href="{%url 'shopping'%}" class="item">
                     Söwda</a>
@@ -151,30 +151,26 @@
         <div class="box-left">
             <ul class="menu-filters js-filters-new">
                 <li class="item" id="1st">
-                    <a href="{% url 'notices' %}"><div class="leftbar" >Hemmesi</div></a>                                   
+                    <a href="{% url 'notices' %}"><div class="leftbar" >Hemaýatçylar</div></a>                                   
                 </li>
-                {% if user.is_authenticated %}
-                    <li class="item" id="7th">
-                        <a href="{% url 'favorites_notice' %}"><div class="leftbar" >Halanlarym</div></a>                                   
-                    </li>
-                {% endif %}
                 <li class="item" id="2nd">
-                    <a href="{% url 'onumchilik' %}"><div class="leftbar" >Önümçilik saýtlary</div></a>
+                    <a href="{% url 'onumchilik' %}"><div class="leftbar" >Önümçilik Hemaýatçylary</div></a>
                 </li>
                 <li class="item" id="3rd">
-                    <a href="{% url 'sowda' %}"><div class="leftbar" >Söwda saýtlary</div></a>
+                    <a href="{% url 'sowda' %}"><div class="leftbar" >Söwda Hemaýatçylary</div></a>
                 </li>
                 <li class="item" id="4th">
-                    <a href="{% url 'okuw' %}"><div class="leftbar" >Okuw saýtlary</div></a>
+                    <a href="{% url 'okuw' %}"><div class="leftbar" >Bilim Hemaýatçylary</div></a>
                 </li>
                 <li class="item" id="5th">
-                    <a href="{% url 'habar' %}"><div class="leftbar" >Habar saýtlary</div></a>
+                    <a href="{% url 'habar' %}"><div class="leftbar" >Sungat Hemaýatçylary</div></a>
                 </li>
-                {% if user.is_authenticated %}
                 <li class="item" id="6th">
-                    <a href="{% url 'add_notice' %}"><div class="leftbar" >Bildiriş goş</div></a>
+                    <a href=""><div class="leftbar" >Internet Hemaýatçylary</div></a>
                 </li>
-                {% endif %}
+                <li class="item" id="7th">
+                    <a href=""><div class="leftbar" >Gurluşyk Hemaýatçylary</div></a>
+                </li>
             </ul>
         </div>
             </div>
@@ -187,14 +183,14 @@
             position: relative; 
             margin:auto;
             top:0vh;
-            padding:20px;
+            paddinsg:20px;
             border-radius: 25px;
             box-shadow: 0 0 10px black;
             float:center;
             text-align:center;
             ">
 
-<form action="{% url 'search' %}" method='get' style='display:block;margin-left:10%;margin-top:-20px'>
+<form action="{% url 'search' %}" method='get' style='display:block;margin-top:-20px'>
     <input type="text" name='q' style='border-radius:10px;margin:auto;height:30px;width:80%;padding-left:5px; margin-top:30px;'>
     <input type="submit" value='Gözle' class='button' style='height:30px;line-height:0px;border-radius:10px;margin:auto;margin-bottom:30px'>
 </form>
@@ -209,8 +205,8 @@
 
 <div style='float:right; width:20%; border-left:1px solid grey' id='left_ads'>
 
-{% comment %} <script type="text/javascript">
-    res = fetch("{% url 'get_left_ads' %}")
+<script type="text/javascript">
+    res = fetch("{% url 'ads' %}")
         .then(res => res.json())
         .then(data => {
             let a
@@ -219,7 +215,7 @@
                 document.getElementById('left_ads').innerHTML = a; 
             })
         })
-</script> {% endcomment %}
+</script>
 
 </div>
 </div>

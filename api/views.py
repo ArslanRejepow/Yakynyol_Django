@@ -15,7 +15,7 @@ from users.models import User
 
 @api_view(('GET',))
 def adsApi(request):
-    data = Left_Ad.objects.all()
+    data = Left_Ad.objects.all().order_by('?')
     serializer = AdSerializer(data, many=True)
     return Response(serializer.data)
 
