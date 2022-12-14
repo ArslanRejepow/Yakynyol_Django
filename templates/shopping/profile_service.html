@@ -7,7 +7,7 @@
 
   <div class="all_products">
     <div id="{{item.pk}}" style='border:1px solid black;margin-bottom:20px;border-radius:5px;padding:5px;height:200px;text-size:16px; overflow:hidden'> <li style='text-align:center'>
-      <img src="{{item.image_1.url}}" class="{{item.pk}}" style='float:left;height:200px;'>
+      <img src="{{item.image.url}}" class="{{item.pk}}" style='float:left;height:200px;'>
       <a href="{% url 'delete_service' item.pk %}" class='btn btn-danger text-white' style='float:right'>Poz</a>
       <div class="{{item.pk}}" style='display:none'>
       <div class='slideshow-container'>

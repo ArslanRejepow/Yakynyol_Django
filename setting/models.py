@@ -25,7 +25,7 @@ class Lesson(models.Model):
 	word2 = models.CharField(max_length = 30, blank = True, verbose_name= 'Video Söz 2')
 	word3 = models.CharField(max_length = 30, blank = True, verbose_name= 'Video Söz 3')
 	category = models.CharField(max_length=30, choices=CATEGORY_CHOICES, verbose_name= 'Kategoriýasy')
-	language = models.CharField(max_length = 30, choices = LANGUAGE_CHOICES, verbose_name= 'Öwredýän dili')
+	language = models.CharField(max_length = 30, choices = LANGUAGE_CHOICES, verbose_name= 'Esasy dili')
 	class Meta:
 		verbose_name = 'Sapak'
 		verbose_name_plural = 'Sapaklar'

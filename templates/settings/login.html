@@ -1,64 +1,77 @@
-{% extends 'settings/base.html' %}
+{% extends 'settings/base.html' %} {% block content %}
 
-{% block content %}
-?>
-        <div class="tabs">
-            <h2 class='reg-tab' id="reg-tab">Registrasiýa</h2>
-            <h2 class='login-tab active' id="login-tab">Içeri gir</h2>
-        </div>
+<div class="tabs">
+  <h2 class="reg-tab" id="reg-tab">Registrasiýa</h2>
+  <h2 class="login-tab active" id="login-tab">Içeri gir</h2>
+</div>
 
-        <div id="login-form">
-            <form method='post'>
-                {% csrf_token %}
-                <input type="text" name="username" id="username" placeholder="Ulanyjy ady">
-                <input type="password" name="password" id="pass" placeholder="Açar sözi">
-                <button type="submit" name='submit' value='login'>Içeri gir</button>
-            </form>
-        </div>
+<div id="login-form">
+  <form method="post">
+    {% csrf_token %}
+    <input
+      type="text"
+      name="username"
+      id="username"
+      placeholder="Ulanyjy ady"
+    />
+    <input type="password" name="password" id="pass" placeholder="Açar sözi" />
+    <button type="submit" name="submit" value="login">Içeri gir</button>
+  </form>
+</div>
 
-        <div id="registration-form">
-            <form method='post'>
-                {% csrf_token %}
-                <p class="msg">Password didnot match !!!</p>
-                {{form.username}} <br>
-                {{form.mobile_no}}<br>
-                {{form.password1}}<br>
-                {{form.password2}}<br>
-                {{form.velayat}}<br>
-                <p style='text-align:center;font-size:20px'>Telefon belgiňizi hasaba aldyrmak üçin bellän belgiňizden +993 64 197532 belgä boş sms ugradyň. Admin nomeringizi barlap rugsat berenden song Içeri gir bölüminden içeri girip bilersiňiz!</p>
-                <button id="create" type="submit" name='submit' value='sign_up'>Register</button>
-            </form>
-        </div>
+<div id="registration-form">
+  <form method="post">
+    {% csrf_token %}
+    <p class="msg">Password didnot match !!!</p>
+    Ulanyjy ady: <br />
+    {{form.username}} <br />
+    Telefon nomeri: <br />
+    {{form.mobile_no}}<br />
+    Açar sözi: <br />
+    {{form.password1}}<br />
+    Açar sözi 2nji: <br />
+    {{form.password2}}<br />
+    Welaýaty: <br />
+    {{form.velayat}}<br />
+    <p style="text-align: center; font-size: 20px">
+      Telefon belgiňizi hasaba aldyrmak üçin bellän belgiňizden +993 64 197532
+      belgä boş sms ugradyň. Admin nomeringizi barlap rugsat berenden song Içeri
+      gir bölüminden içeri girip bilersiňiz!
+    </p>
+    <button id="create" type="submit" name="submit" value="sign_up">
+      Register
+    </button>
+  </form>
+</div>
 
-        <script>
-        const reg_form = document.querySelector("#registration-form")
-        const login_form = document.querySelector("#login-form")
+<script>
+  const reg_form = document.querySelector("#registration-form");
+  const login_form = document.querySelector("#login-form");
 
-        const reg_tab = document.querySelector("#reg-tab")
-        const login_tab = document.querySelector("#login-tab")
+  const reg_tab = document.querySelector("#reg-tab");
+  const login_tab = document.querySelector("#login-tab");
 
-        const pass = document.querySelector('#pass')
-        const confirm_pass = document.querySelector('#confirm-pass')
-        const msg = document.querySelector('p')
-        const btn = document.querySelector('#create')
+  const pass = document.querySelector("#pass");
+  const confirm_pass = document.querySelector("#confirm-pass");
+  const msg = document.querySelector("p");
+  const btn = document.querySelector("#create");
 
-        reg_tab.addEventListener('click', (e) => {
-            login_form.style.display = 'none';
-            reg_form.style.display = 'block';
-            reg_tab.classList.add('active')
-            login_tab.classList.remove('active')
-        })
-        login_tab.addEventListener('click', (e) => {
-            login_form.style.display = 'block';
-            reg_form.style.display = 'none';
-            reg_tab.classList.remove('active')
-            login_tab.classList.add('active')
-        })
-
-    </script>
+  reg_tab.addEventListener("click", (e) => {
+    login_form.style.display = "none";
+    reg_form.style.display = "block";
+    reg_tab.classList.add("active");
+    login_tab.classList.remove("active");
+  });
+  login_tab.addEventListener("click", (e) => {
+    login_form.style.display = "block";
+    reg_form.style.display = "none";
+    reg_tab.classList.remove("active");
+    login_tab.classList.add("active");
+  });
+</script>
 
 <script type="text/javascript">
-        item = document.getElementById('1st').classList.add('leftbarcurrent');
+  item = document.getElementById("1st").classList.add("leftbarcurrent");
 </script>
 
 {% endblock content %}
