@@ -1,262 +1,281 @@
-{% extends 'lesson/base.html' %}
+{% extends 'lesson/base.html' %} {% block content %}
 
-{% block content %}
-
-
-<div><h2 style='width:auto;display:inline;float:left;font-size:30px'>{{lesson.name}}</h2><p style='float:right'> Video sapaklary  <a href="{{lesson.link1}}">{{lesson.word1}}</a>   <a href="lesson.link2">{{lesson.word2}}</a>   <a href="{{lesson.link3}}">{{lesson.word3}}</a></p><br><br><br></div>
-
+<div>
+  <h2 style="width: auto; display: inline; float: left; font-size: 30px">
+    {{lesson.name}}
+  </h2>
+  <p style="float: right">
+    Video sapaklary <a href="{{lesson.link1}}">{{lesson.word1}}</a>
+    <a href="lesson.link2">{{lesson.word2}}</a>
+    <a href="{{lesson.link3}}">{{lesson.word3}}</a>
+  </p>
+  <br /><br /><br />
+</div>
 
 <script>
-    var inlisceler=[];description=[];yalnystext=[];inlisceler2=[];description2=[];yalnystext2=[];inlisceler3=[];inlisceler4=[];music=[];;music2=[];aydym=[];aydym2=[];;gosmaca1=[];gosmaca12=[];gosmaca2=[];gosmaca22=[];
+  var inlisceler = [];
+  description = [];
+  yalnystext = [];
+  inlisceler2 = [];
+  description2 = [];
+  yalnystext2 = [];
+  inlisceler3 = [];
+  inlisceler4 = [];
+  music = [];
+  music2 = [];
+  aydym = [];
+  aydym2 = [];
+  gosmaca1 = [];
+  gosmaca12 = [];
+  gosmaca2 = [];
+  gosmaca22 = [];
 </script>
 
 {% for dialog in dialogs %}
 
 <script>
-        inlisceler.push("{{dialog.question_another}}");
-        music.push("{{dialog.audio_question_another}}");
-        aydym.push("{{dialog.audio.answer_another}}");
-        description.push("{{dialog.description}}");
-        yalnystext.push("{{dialog.wrong_text}}");
-        inlisceler3.push("{{dialog.answer_another}}");
-        gosmaca1.push("{{dialog.additional1}}");
-        gosmaca2.push("{{dialog.additional2}}");
+  inlisceler.push("{{dialog.question_another}}");
+  music.push("{{dialog.audio_question_another}}");
+  aydym.push("{{dialog.audio.answer_another}}");
+  description.push("{{dialog.description}}");
+  yalnystext.push("{{dialog.wrong_text}}");
+  inlisceler3.push("{{dialog.answer_another}}");
+  gosmaca1.push("{{dialog.additional1}}");
+  gosmaca2.push("{{dialog.additional2}}");
 </script>
 
 {% endfor %}
 
+<div id="divv" style="background: #fff3d9">
+  <button id="say" style="margin-bottom: 0px; padding: 0px; margin-top: 0px">
+    Sesi aýtdyr &#127925;
+  </button>
+</div>
+<br />
+<button
+  class="button buttonn"
+  style="line-height: normal; height: auto"
+  id="button1"
+  name=""
+  onclick="jogapBarla(1)"
+>
+  Barla ( ýada Enter )</button
+><br />
+<button
+  class="button buttonn"
+  style="line-height: normal; height: auto"
+  id="button2"
+  name=""
+  onclick="jogapBarla(2)"
+>
+  Barla ( ýada Enter )</button
+><br />
+<button
+  class="button buttonn"
+  style="line-height: normal; height: auto"
+  id="button3"
+  name=""
+  onclick="jogapBarla(3)"
+>
+  Barla ( ýada Enter )</button
+><br />
+<div
+  style="border: 1px solid green; border-radius: 10px; background: #fff3d9"
+  id="bord"
+>
+  <br />
+  <p
+    id="description"
+    class="2"
+    style="font-size: 25px; color: green; margin-bottom: 0px; line-height: 0px"
+  ></p>
+  <br />
+</div>
 
-        <div id='divv'>
-        
-        <button  id='say' style='margin-bottom:0px; padding:0px; margin-top:0px'><img src='images/sound.png'style='width:40px; float:right'></button></div><br>
+<input
+  type="button"
+  class="button buttonn"
+  id="dowam"
+  value="Dowam et ( ýada Shift )"
+  onclick="poz()"
+/><br />
 
-        <span style='font-size:25px; display:block;text-align:center'>Dogry jogsby saýlaň</span>
-        <button class='button buttonn' style='line-height:normal; height:auto;'  id='button1' name='' onclick=jogapBarla(1)>Barla ( ýada Enter )</button><br>
-        <button class='button buttonn'  style='line-height:normal; height:auto;' id='button2' name='' onclick=jogapBarla(2)>Barla ( ýada Enter )</button><br>
-        <button class='button buttonn' style='line-height:normal; height:auto;' id='button3' name='' onclick=jogapBarla(3)>Barla ( ýada Enter )</button><br>
-        <div style='border:1px solid green; border-radius:10px;' id='bord'>   <br><br>
-        <p id='description' class='2' style='font-size:25px;color:green; margin-bottom:0px;line-height:0px'><p></div>
-        <input type='button' class='button buttonn' id='dowam' value='Dowam et ( ýada Shift )' onclick=poz()><br>
-
-
-        <ul>
-       {% for comment in comments %}
-        <li style='border:1px solid rgb(25, 61, 11); text-align:left;border-radius:15px; padding:10px'>
-            {% if comment.user == user.pk %}
-                <a href='delete_comments.php?id=$bilgi[id]' style='float:right'>Teswiri poz</a>
-            {% endif %}
-
-        <h4 style='padding:5px;margin-bottom:-15px'>{{comment.user}}</h4>
-        <p style='padding:5px; margin-bottom:0px'>{{comment.body}}</p>
-
-        <div style='display:flex;flex-direction:column;justify-content:right'>
-            {%for comment_child in comment.replies.all %}
-                <div style='border:1px solid rgb(104, 202, 65); text-align:right;border-radius:15px; padding:10px;'>
-                    {% if comment_child.user == user.pk %}
-                        <a href='delete_comments.php?id=$row[id]' style='float:left'>Teswiri poz</a>    
-                    {% endif %}
-                    <h4 style='padding:5px;margin-bottom:-15px'>{{comment_child.user}}</h4>
-                    <p style='padding:5px; margin-bottom:0px'>{{comment_child.body}}</p></div>";
-            {% endfor %}
-        </div>
-        {% if user.is_authenticated %}
-        <form  method='post' style='width:40%;'>
-            {% csrf_token %}
-        <input type='hidden' name='comment_id' value="{{comment.pk}}">
-        <textarea name='comment' style='border-radius:10px; resize:none; padding:5px;'></textarea>
-        <input type='submit' value='Jogap ber'>
-        </form>
-        {% endif %}
-        </li>
-{% endfor %}
-</ul><audio id='y'><source src=words/hello.mp3 id='src'>Bolanok</audio>
-
-{% if user.is_authenticated %}
-    <form method='post'>
-        {% csrf_token %} 
-    <textarea name='comment' style='resize:none;padding:10px;border-radius:20px' rows=5></textarea>
-    <input type='submit' value='Teswiriňi ugrat'><br><br><br>
-    </form>
-{% endif %}
-
+<audio id="y"><source src=words/hello.mp3 id='src'>Bolanok</audio>
 
 <script>
-    for (var i of inlisceler){
-        inlisceler2.push(i);
-    }
-    for (var i of inlisceler3){
-        inlisceler4.push(i);
-    }
-    for (var i of description){
-        description2.push(i);
-    }
-    for (var i of yalnystext){
-        yalnystext2.push(i);
-    }
-    for (var i of gosmaca1){
-        gosmaca12.push(i);
-    }
-    for (var i of gosmaca2){
-        gosmaca22.push(i);
-    }
-    for (var i of music){
-        music2.push(i);
-    }
-    for (var i of aydym){
-        aydym2.push(i);
-    }
-    var bord=document.getElementById('bord');
-    var jogap1=document.getElementById('button1');
-    var jogap2=document.getElementById('button2');
-    var jogap3=document.getElementById('button3');
-    var descriptiontext=document.getElementById('description');
-log='d';
-indiki();
+  for (var i of inlisceler) {
+    inlisceler2.push(i);
+  }
+  for (var i of inlisceler3) {
+    inlisceler4.push(i);
+  }
+  for (var i of description) {
+    description2.push(i);
+  }
+  for (var i of yalnystext) {
+    yalnystext2.push(i);
+  }
+  for (var i of gosmaca1) {
+    gosmaca12.push(i);
+  }
+  for (var i of gosmaca2) {
+    gosmaca22.push(i);
+  }
+  for (var i of music) {
+    music2.push(i);
+  }
+  for (var i of aydym) {
+    aydym2.push(i);
+  }
+  var bord = document.getElementById("bord");
+  var jogap1 = document.getElementById("button1");
+  var jogap2 = document.getElementById("button2");
+  var jogap3 = document.getElementById("button3");
+  var descriptiontext = document.getElementById("description");
+  log = "d";
+  indiki();
 
-function poz(){
-    
-if(log){    
-    inlisceler.splice(id,1);
-    inlisceler3.splice(id,1);
-    description.splice(id,1);
-    yalnystext.splice(id,1);
-    gosmaca1.splice(id,1);
-    gosmaca2.splice(id,1);
-    music.splice(id,1);
-    aydym.splice(id,1);
-    if(inlisceler.length<3){
-        inlisceler=[];
-    inlisceler3=[];
-    description=[];
-    yalnystext=[];
-    music=[];
-    aydym=[];
-        for (var i of inlisceler2){
-            inlisceler.push(i);
+  function poz() {
+    if (log) {
+      inlisceler.splice(id, 1);
+      inlisceler3.splice(id, 1);
+      description.splice(id, 1);
+      yalnystext.splice(id, 1);
+      gosmaca1.splice(id, 1);
+      gosmaca2.splice(id, 1);
+      music.splice(id, 1);
+      aydym.splice(id, 1);
+      if (inlisceler.length < 3) {
+        inlisceler = [];
+        inlisceler3 = [];
+        description = [];
+        yalnystext = [];
+        music = [];
+        aydym = [];
+        for (var i of inlisceler2) {
+          inlisceler.push(i);
         }
-        for (var i of inlisceler4){
-            inlisceler3.push(i);
+        for (var i of inlisceler4) {
+          inlisceler3.push(i);
         }
-        for (var i of description2){
-            description.push(i);
+        for (var i of description2) {
+          description.push(i);
         }
-        for (var i of music2){
-            music.push(i);
+        for (var i of music2) {
+          music.push(i);
         }
-        for (var i of yalnystext2){
-            yalnystext.push(i);
+        for (var i of yalnystext2) {
+          yalnystext.push(i);
         }
-        for (var i of gosmaca12){
-            gosmaca1.push(i);
+        for (var i of gosmaca12) {
+          gosmaca1.push(i);
         }
-        for (var i of gosmaca22){
-            gosmaca2.push(i);
+        for (var i of gosmaca22) {
+          gosmaca2.push(i);
         }
-        for (var i of aydym2){
-            aydym.push(i);
+        for (var i of aydym2) {
+          aydym.push(i);
         }
-        for (var i of music2){
-            music.push(i);
+        for (var i of music2) {
+          music.push(i);
         }
-
+      }
+      indiki();
     }
-    indiki();}
-}
+  }
 
-function jogapBarla(jogap){
-    if (dj==jogap){
-        var src=document.getElementById('src');
-        var y=document.getElementById('y');
-        if(aydym[id][6]==' '){
-            aydym[id] = aydym[id].replace(' ','');
-        }
-        src.src=aydym[id];
-        y.load();
-        y.play();
-        log='h';
-        descriptiontext.innerHTML=description[id];
-        descriptiontext.style.color='green';
-        bord.style.border='1px solid green';
-    }else{
-        descriptiontext.innerHTML=yalnystext2[id];
-        descriptiontext.style.color='red';
-        bord.style.border='1px solid red';
+  function jogapBarla(jogap) {
+    if (dj == jogap) {
+      var src = document.getElementById("src");
+      var y = document.getElementById("y");
+      if (aydym[id][6] == " ") {
+        aydym[id] = aydym[id].replace(" ", "");
+      }
+      src.src = aydym[id];
+      y.load();
+      y.play();
+      log = "h";
+      descriptiontext.innerHTML = "Berekella! &#x1F92A;";
+      descriptiontext.style.color = "green";
+      bord.style.border = "1px solid green";
+    } else {
+      descriptiontext.innerHTML = "Ýalňyşdyňyz! &#129320;";
+      descriptiontext.style.color = "red";
+      bord.style.border = "1px solid red";
     }
-}
-var onceki=0;
+  }
+  var onceki = 0;
 
-
-
-function indiki(){
-
-descriptiontext.innerHTML='';
-id=Math.floor(Math.random()*inlisceler.length);
-while(onceki==id){
-   id=Math.floor(Math.random()*inlisceler.length);
-}
-onceki=id;
-
-dj=Math.floor(Math.random()*3);
-
-
-while (1==1){
-id2=Math.floor(Math.random()*inlisceler.length);
-id3=Math.floor(Math.random()*inlisceler.length);
-    if(id==id2 || id==id3 || id2==id3){
-id2=Math.floor(Math.random()*inlisceler.length);
-id3=Math.floor(Math.random()*inlisceler.length);
-}else{
-    break;
-}
-}
-
-if(dj==1){
-    jogap1.innerHTML=inlisceler3[id]+'<br>'+gosmaca2[id];
-    jogap2.innerHTML=inlisceler3[id2]+'<br>'+gosmaca2[id2];
-    jogap3.innerHTML=inlisceler3[id3]+'<br>'+gosmaca2[id3];
-    }else if(dj==2){
-        jogap1.innerHTML=inlisceler3[id2]+'<br>'+gosmaca2[id2];
-        jogap2.innerHTML=inlisceler3[id]+'<br>'+gosmaca2[id];
-        jogap3.innerHTML=inlisceler3[id3]+'<br>'+gosmaca2[id3];
-        }else if(dj==3){
-            jogap1.innerHTML=inlisceler3[id2]+'<br>'+gosmaca2[id2];
-            jogap2.innerHTML=inlisceler3[id3]+'<br>'+gosmaca2[id3];
-            jogap3.innerHTML=inlisceler3[id]+'<br>'+gosmaca2[id];
-            }else{
-                dj=3;
-                jogap1.innerHTML=inlisceler3[id2]+'<br>'+gosmaca2[id2];
-                jogap2.innerHTML=inlisceler3[id3]+'<br>'+gosmaca2[id3];
-                jogap3.innerHTML=inlisceler3[id]+'<br>'+gosmaca2[id];
-            } 
-
-            var src=document.getElementById('src');
-            var y=document.getElementById('y');
-    if(music[id][6]==' '){
-        music[id] = music[id].replace(' ','');
+  function indiki() {
+    descriptiontext.innerHTML = "Dogry jogaby saýlaň &#128070;";
+    descriptiontext.style.color = "black";
+    bord.style.border = "1px solid black";
+    id = Math.floor(Math.random() * inlisceler.length);
+    while (onceki == id) {
+      id = Math.floor(Math.random() * inlisceler.length);
     }
-            src.src=music[id];
-            y.load();
-            y.play();        
-      log='';  }
-        
+    onceki = id;
 
-var say=document.getElementById('say');
-say.addEventListener('click',function(event){
-    var src=document.getElementById('src');
-    var y=document.getElementById('y');
-    if(music[id][6]==' '){
-        music[id] = music[id].replace(' ','');
+    dj = Math.floor(Math.random() * 3);
+
+    while (1 == 1) {
+      id2 = Math.floor(Math.random() * inlisceler.length);
+      id3 = Math.floor(Math.random() * inlisceler.length);
+      if (id == id2 || id == id3 || id2 == id3) {
+        id2 = Math.floor(Math.random() * inlisceler.length);
+        id3 = Math.floor(Math.random() * inlisceler.length);
+      } else {
+        break;
+      }
     }
-    music[id] = music[id].replace('?','');
-    src.src=music[id];
+
+    if (dj == 1) {
+      jogap1.innerHTML = inlisceler3[id] + "<br>" + gosmaca2[id];
+      jogap2.innerHTML = inlisceler3[id2] + "<br>" + gosmaca2[id2];
+      jogap3.innerHTML = inlisceler3[id3] + "<br>" + gosmaca2[id3];
+    } else if (dj == 2) {
+      jogap1.innerHTML = inlisceler3[id2] + "<br>" + gosmaca2[id2];
+      jogap2.innerHTML = inlisceler3[id] + "<br>" + gosmaca2[id];
+      jogap3.innerHTML = inlisceler3[id3] + "<br>" + gosmaca2[id3];
+    } else if (dj == 3) {
+      jogap1.innerHTML = inlisceler3[id2] + "<br>" + gosmaca2[id2];
+      jogap2.innerHTML = inlisceler3[id3] + "<br>" + gosmaca2[id3];
+      jogap3.innerHTML = inlisceler3[id] + "<br>" + gosmaca2[id];
+    } else {
+      dj = 3;
+      jogap1.innerHTML = inlisceler3[id2] + "<br>" + gosmaca2[id2];
+      jogap2.innerHTML = inlisceler3[id3] + "<br>" + gosmaca2[id3];
+      jogap3.innerHTML = inlisceler3[id] + "<br>" + gosmaca2[id];
+    }
+
+    var src = document.getElementById("src");
+    var y = document.getElementById("y");
+    if (music[id][6] == " ") {
+      music[id] = music[id].replace(" ", "");
+    }
+    src.src = music[id];
     y.load();
     y.play();
-console.log(music);
-})
-    </script>
+    log = "";
+  }
+
+  var say = document.getElementById("say");
+  say.addEventListener("click", function (event) {
+    var src = document.getElementById("src");
+    var y = document.getElementById("y");
+    if (music[id][6] == " ") {
+      music[id] = music[id].replace(" ", "");
+    }
+    music[id] = music[id].replace("?", "");
+    src.src = music[id];
+    y.load();
+    y.play();
+    console.log(music);
+  });
+</script>
 
 <script type="text/javascript">
-  item = document.getElementById('9th').classList.add('leftbarcurrent');
+  item = document.getElementById("9th").classList.add("leftbarcurrent");
 </script>
-    
+
 {% endblock content %}

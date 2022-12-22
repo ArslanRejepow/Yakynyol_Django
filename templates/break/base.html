@@ -193,9 +193,9 @@
             text-align:center;
             ">
 
-<form action="{% url 'search' %}" method='get' style='display:block;margin-top:-20px'>
-    <input type="text" name='q' style='border-radius:10px;margin:auto;height:30px;width:80%;padding-left:5px; margin-top:30px;'>
-    <input type="submit" value='Gözle' class='button' style='height:30px;line-height:0px;border-radius:10px;margin:auto;margin-bottom:30px'>
+<form action="{% url 'search' %}" method='get' style='display:block;margin:unset;margin-top:-20px'>
+    <input type="text" name='q' style='border: 1px solid black;border-radius:10px;margin:auto;height:30px;width:80%;padding-left:5px; margin-top:5px;'>
+    <input type="submit" value='&#128269;' class='button' style='height:30px;line-height:0px;border-radius:10px;margin:auto;margin-bottom:10px; padding: 10px'>
 </form>
 
 
@@ -215,7 +215,8 @@
             let a
             data.forEach(key => {
                 a = `<a href=`+key.link+`><img src=`+key.image+`></a>`;
-                document.getElementById('left_ads').innerHTML = a; 
+                document.getElementById('left_ads').innerHTML += a; 
+                console.log(a)
             })
         })
 </script>
@@ -223,7 +224,7 @@
 </div></div>
 
 </section>
-<footer id="footer" style='height:30px'>
+<footer id="footer" style='height: 30px'>
     <div class="box-top">
         <div class="inner">
             <div class="box-left">

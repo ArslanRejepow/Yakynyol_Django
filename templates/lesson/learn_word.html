@@ -93,74 +93,7 @@
   </div>
 </div>
 
-<ul>
-  {% for comment in comments %}
-  <li
-    style="
-      border: 1px solid rgb(25, 61, 11);
-      text-align: left;
-      border-radius: 15px;
-      padding: 10px;
-    "
-  >
-    {% if comment.user == user.pk %}
-    <a href="delete_comments.php?id=$bilgi[id]" style="float: right"
-      >Teswiri poz</a
-    >
-    {% endif %}
-
-    <h4 style="padding: 5px; margin-bottom: -15px">{{comment.user}}</h4>
-    <p style="padding: 5px; margin-bottom: 0px">{{comment.body}}</p>
-
-    <div style="display: flex; flex-direction: column; justify-content: right">
-      {%for comment_child in comment.replies.all %}
-      <div
-        style="
-          border: 1px solid rgb(104, 202, 65);
-          text-align: right;
-          border-radius: 15px;
-          padding: 10px;
-        "
-      >
-        {% if comment_child.user == user.pk %}
-        <a href="delete_comments.php?id=$row[id]" style="float: left"
-          >Teswiri poz</a
-        >
-        {% endif %}
-        <h4 style="padding: 5px; margin-bottom: -15px">
-          {{comment_child.user}}
-        </h4>
-        <p style="padding: 5px; margin-bottom: 0px">{{comment_child.body}}</p>
-      </div>
-      "; {% endfor %}
-    </div>
-    {% if user.is_authenticated %}
-    <form method="post" style="width: 40%">
-      {% csrf_token %}
-      <input type="hidden" name="comment_id" value="{{comment.pk}}" />
-      <textarea
-        name="comment"
-        style="border-radius: 10px; resize: none; padding: 5px"
-      ></textarea>
-      <input type="submit" value="Jogap ber" />
-    </form>
-    {% endif %}
-  </li>
-  {% endfor %}
-</ul>
 <audio id="y"><source src=words/hello.mp3 id='src'>Bolanok</audio>
-
-{% if user.is_authenticated %}
-<form method="post">
-  {% csrf_token %}
-  <textarea
-    name="comment"
-    style="resize: none; padding: 10px; border-radius: 20px"
-    rows="5"
-  ></textarea>
-  <input type="submit" value="Teswiriňi ugrat" /><br /><br /><br />
-</form>
-{% endif %}
 
 <script>
   console.log(music);
