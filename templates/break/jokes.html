@@ -52,13 +52,23 @@
   <div id="caption"></div>
 </div>
 <div class="fade {{item.pk}}" style='display:none'>
+  {% if item.image_2 %}
   <div class='numbertext'>2 / 3</div>
   <img src="{{item.image_2.url}}" class='img'>
+  {% else %}
+  <div class='numbertext'>2 / 3</div>
+  <img src="{{item.image_1.url}}" class='img'>
+  {% endif %}
 </div>
 
 <div class="fade {{item.pk}} " style='display:none'>
+  {% if item.image_3 %}
   <div class='numbertext'>3 / 3</div>
   <img src="{{item.image_3.url}}" class='img'>
+  {% else %}
+  <div class='numbertext'>3 / 3</div>
+  <img src="{{item.image_1.url}}" class='img'>
+  {% endif %}
 </div>
 
 <a class='prev' onclick="plusSlides2({{item.pk}},-1)">&#10094;</a>
