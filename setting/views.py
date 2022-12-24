@@ -23,6 +23,8 @@ def login_view(request):
                 user.save()
                 username = form.cleaned_data.get('username')
                 return redirect('login')
+            else:
+                return render(request, 'settings/login.html', {'form': form, 'errors': form.errors})
         elif request.POST.get('submit') == 'login':
             username = request.POST['username']
             password = request.POST['password']

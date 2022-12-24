@@ -49,7 +49,7 @@ class Category(models.Model):
 
 class Market(models.Model):
     user = models.OneToOneField(
-        "users.User", on_delete=models.CASCADE, primary_key=True, verbose_name='Ulanyjy')
+        "users.User", on_delete=models.CASCADE, primary_key=True, verbose_name='Ulanyjy', related_name='market')
     image_1 = models.ImageField(upload_to='images', verbose_name='Surat 1')
     image_2 = models.ImageField(upload_to='images', verbose_name='Surat2')
     region = models.CharField(
@@ -62,7 +62,7 @@ class Market(models.Model):
     phone_number = models.CharField(
         max_length=200, verbose_name='Telefon Nomeri')
     name = models.CharField(max_length=400, verbose_name='Ady')
-    warning = models.TextField(verbose_name='Duýduryş tekksti')
+    warning = models.TextField(verbose_name='Duýduryş teksti')
     place = models.CharField(max_length=50, verbose_name='Ýeri')
     date = models.DateField(
         auto_now=False, auto_now_add=False, verbose_name='Senesi')

@@ -1,86 +1,129 @@
-{% extends 'shopping/base.html' %}
-{% load split_tag %}
-
-{% block content %}
+{% extends 'shopping/base.html' %} {% load split_tag %} {% block content %}
 
 <style type="text/css">
-	.img{
-  width:40%;
-  height:250px;
-}
-
-@media only screen and (max-width: 768px){
-  .img{
-    width: 100%;
+  .img {
+    width: 40%;
+    height: 250px;
   }
-}
+  input {
+    border: 1px solid black !important;
+  }
+  select {
+    border: 1px solid black !important;
+  }
+  @media only screen and (max-width: 768px) {
+    .img {
+      width: 100%;
+    }
+  }
 </style>
 
-<form action="search_product.php" method='get' style='display:block;margin-top:-20px;width: 100%;'>
-    <input type="text" name='keyword' style='border-radius:10px;margin:auto;height:30px;width:50%;padding-left:5px; margin-top:30px;'>
-    <input type="submit" value='Gözle' class='button' style='height:30px;line-height:0px;width: 20%;border-radius:10px;padding-left:10px;'>
+<form
+  action="search_product.php"
+  method="get"
+  style="display: block; margin: unset"
+>
+  <input
+    type="text"
+    name="keyword"
+    style="
+      border: 1px solid black;
+      border-radius: 10px;
+      margin: auto;
+      height: 30px;
+      width: 80%;
+      padding-left: 5px;
+      margin-top: 5px;
+    "
+  />
+  <input
+    type="submit"
+    value="&#128269;"
+    class="button"
+    style="
+      height: 30px;
+      line-height: 0px;
+      border-radius: 10px;
+      margin: auto;
+      margin-bottom: 10px;
+      padding: 10px;
+    "
+  />
 </form>
 
 <div class="form-group row">
   <h6>Welayaty</h6>
   <div class="col-lg-3">
-	<select class="form-control" id='velayat'>
-		<option>Hemmesi</option>
-		<option>Balkan</option>
-		<option>Ahal</option>
-		<option>Mary</option>
-		<option>Lebap</option>
-		<option>Dashoguz</option>
-	</select>
+    <select class="form-control" id="velayat">
+      <option>Hemmesi</option>
+      <option>Balkan</option>
+      <option>Ahal</option>
+      <option>Mary</option>
+      <option>Lebap</option>
+      <option>Dashoguz</option>
+    </select>
   </div>
   <h6>Kategoriya</h6>
   <div class="col-lg-2">
-	<select class="form-control" id='category'>
-		<option>Hemmesi</option>
-{% for category in categories %}
-		<option>{{category.name}}</option>
-{% endfor %}
-	</select>
-  </div>Bahasy
+    <select class="form-control" id="category">
+      <option>Hemmesi</option>
+      {% for category in categories %}
+      <option>{{category.name}}</option>
+      {% endfor %}
+    </select>
+  </div>
+  Bahasy
   <div class="col-lg-3 input-group p-1">
-  <span class="input-group-text" style="width:20px">&darr;</span>
-	<input type="text" id="min" class="form-control">
-	<span class="input-group-text" style="width:20px">&uarr;</span>
-	<input  class="form-control" type="text" id="max">
+    <span class="input-group-text" style="border: 1px solid black; width: 20px"
+      >&darr;</span
+    >
+    <input type="text" id="min" class="form-control" />
+    <span class="input-group-text" style="border: 1px solid black; width: 20px"
+      >&uarr;</span
+    >
+    <input class="form-control" type="text" id="max" />
   </div>
   <div class="col-lg-2">
-	<input  class="btn btn-primary w-50" type="button" onclick="filter()" value="Filter">
-  <input  class="btn btn-primary" type="button" onclick="halanlarym()" value="&#10084;">
+    <input
+      class="btn btn-primary w-50"
+      type="button"
+      onclick="filter()"
+      value="Gözle"
+    />
+    <input
+      class="btn btn-primary"
+      type="button"
+      onclick="halanlarym()"
+      value="&#10084;"
+    />
   </div>
 </div>
 <script>
-    data = [];
-    {% for product in products %}
-        velayats = ['hemmesi'];
-        {% for velayat in product.market.place|get_velayats %}
-            velayats.push("{{velayat}}");
-        {% endfor %}
-        item = {}
-        item['id'] = "{{product.pk}}"
-        item['name'] = "{{product.name}}";
-        item['price'] = "{{product.price}}";
-        item['about'] = "{{product.about}}";
-        item['category'] = ['Hemmesi', "{{product.market.category}}"];
-        item['date'] = "{{product.date}}"
-        item['pic1'] = "{{product.image_1.url}}";
-        item['pic2'] = "{{product.image_2.url}}";
-        item['pic3'] = "{{product.image_3.url}}";
-        item['market_name'] = "{{product.market.name}}";
-        item['number'] = "{{product.market.phone_number}}"; 
-        item['market_code'] = "{{product.market.code}}"  
-        item['velayat'] = velayats;     
-        data.push(item);
-    {% endfor %}
-
+  data = [];
+  {% for product in products %}
+      velayats = ['hemmesi'];
+      {% for velayat in product.market.place|get_velayats %}
+          velayats.push("{{velayat}}");
+      {% endfor %}
+      item = {}
+      item['id'] = "{{product.pk}}"
+      item['name'] = "{{product.name}}";
+      item['price'] = "{{product.price}}";
+      item['about'] = "{{product.about}}";
+      item['category'] = ['Hemmesi', "{{product.market.category}}"];
+      item['date'] = "{{product.date}}"
+      item['pic1'] = "{{product.image_1.url}}";
+      item['pic2'] = "{{product.image_2.url}}";
+      item['pic3'] = "{{product.image_3.url}}";
+      item['market_name'] = "{{product.market.name}}";
+      item['number'] = "{{product.market.phone_number}}";
+      item['market_code'] = "{{product.market.code}}"
+      item['velayat'] = velayats;
+      data.push(item);
+  {% endfor %}
 </script>
 
-<div class="all_products">
-</div>
+<div class="all_products"></div>
 
 <script>
   favourites = [];
@@ -100,114 +143,139 @@
         item['pic2'] = "{{fav.product.image_2.url}}";
         item['pic3'] = "{{fav.product.image_3.url}}";
         item['market_name'] = "{{fav.product.market.name}}";
-        item['number'] = "{{fav.product.market.phone_number}}"; 
-        item['market_code'] = "{{fav.product.market.code}}"  
-        item['velayat'] = velayats;     
+        item['number'] = "{{fav.product.market.phone_number}}";
+        item['market_code'] = "{{fav.product.market.code}}"
+        item['velayat'] = velayats;
         favourites.push(item);
   {% endfor %}
 </script>
 
-    <script>
-        durum=3;
-        durum2=0;
-        function uytget(n) {
-            if (durum%2==1) {
-              var button=document.getElementsByClassName(n);
-              button[0].style.display='none';
-              button[1].style.display='block';
-              button[5].innerHTML='Gizle';
-            var div=document.getElementById(n);
-            div.style.height='auto';
-            durum=durum+1;
-            durum2=n;
-            }else if(durum%2==0) {
-              var button=document.getElementsByClassName(n);
-              button[0].style.display='inline';
-              button[1].style.display='none';
-              button[5].innerHTML='Doly görkez';
-            var div=document.getElementById(n);
-            div.style.height='200px';
-            durum=durum+1;
-            }
-            }
-            var slideIndex = 1;
-showSlides(slideIndex);
-            
-function plusSlides2(k,n) {
-  durum2=k;
-  plusSlides(n);
-}
-
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
-
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
-  var i;
-  var slides2 = document.getElementsByClassName(durum2);
-  var slides=[];slides.push(slides2[2]);slides.push(slides2[3]);slides.push(slides2[4]);
-  var dots = document.getElementsByClassName("dot");
-  if (n > slides.length) {slideIndex = 1}    
-  if (n < 1) {slideIndex = slides.length}
-  // for (i = 0; i < slides.length; i++) {
-  //     slides[i].style.display = "none";  
-  // }
-  for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
+<script>
+  durum = 3;
+  durum2 = 0;
+  function uytget(n) {
+    if (durum % 2 == 1) {
+      var button = document.getElementsByClassName(n);
+      button[0].style.display = "none";
+      button[1].style.display = "block";
+      button[5].innerHTML = "Gizle";
+      var div = document.getElementById(n);
+      div.style.height = "auto";
+      durum = durum + 1;
+      durum2 = n;
+    } else if (durum % 2 == 0) {
+      var button = document.getElementsByClassName(n);
+      button[0].style.display = "inline";
+      button[1].style.display = "none";
+      button[5].innerHTML = "Doly görkez";
+      var div = document.getElementById(n);
+      div.style.height = "200px";
+      durum = durum + 1;
+    }
   }
-  // slides[slideIndex-1].style.display = "block";  
-  // dots[slideIndex-1].className += " active";
-}
-console.log(data);
+  var slideIndex = 1;
+  showSlides(slideIndex);
+
+  function plusSlides2(k, n) {
+    durum2 = k;
+    plusSlides(n);
+  }
+
+  function plusSlides(n) {
+    showSlides((slideIndex += n));
+  }
+
+  function currentSlide(n) {
+    showSlides((slideIndex = n));
+  }
+
+  function showSlides(n) {
+    var i;
+    var slides2 = document.getElementsByClassName(durum2);
+    var slides = [];
+    slides.push(slides2[2]);
+    slides.push(slides2[3]);
+    slides.push(slides2[4]);
+    var dots = document.getElementsByClassName("dot");
+    if (n > slides.length) {
+      slideIndex = 1;
+    }
+    if (n < 1) {
+      slideIndex = slides.length;
+    }
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " active";
+  }
+  console.log(data);
 </script>
 
-
-
 <script>
-	let min_price = 0;
-	let max_price = 3000;
+  let min_price = 0;
+  let max_price = 3000;
 
-$(document).ready(function () {
+  $(document).ready(function () {
     showAllItems();
-});
+  });
 
-function filter(){
-	min_price = parseInt(document.getElementById("min").value);
-	
-	if(isNaN(min_price)){
-		min_price = 0;
-	}
-	
-	max_price = parseInt(document.getElementById("max").value);
-	
-	if(isNaN(max_price)){
-		max_price = 10000000;
-	}
-	vel = document.getElementById('velayat').value.toLowerCase();
-	cat = document.getElementById('category').value;
-	showItemsFiltered();
-	
-}
+  function filter() {
+    min_price = parseInt(document.getElementById("min").value);
 
-function showItemsFiltered() {//Default grid to show all items on page load in
+    if (isNaN(min_price)) {
+      min_price = 0;
+    }
+
+    max_price = parseInt(document.getElementById("max").value);
+
+    if (isNaN(max_price)) {
+      max_price = 10000000;
+    }
+    vel = document.getElementById("velayat").value.toLowerCase();
+    cat = document.getElementById("category").value;
+    showItemsFiltered();
+  }
+
+  function showItemsFiltered() {
+    //Default grid to show all items on page load in
     $(".all_products").empty();
     for (let i = 0; i < data.length; i++) {
-    		categor = data[i]['category']
-        if (data[i]['price'] <= max_price && data[i]['price'] >= min_price && data[i]['velayat'].indexOf(vel) > -1 && data[i]['category'].indexOf(cat) > -1) {
-        let item_content = `<div id=`+data[i]['id']+` style='border:1px solid black;margin-bottom:20px;border-radius:5px;padding:5px;height:200px;text-size:16px; overflow:hidden'> <li style='text-align:center'>
-        <img src=`+data[i]['pic1']+` class=`+data[i]['id']+` style='float:left; height:200px;'>
-        <a class='btn btn-primary' href='{% url 'add_to_favourites_product'%}/`+data[i]['id']+`' style='float:right'>Halanlaryma gos </a>
+      categor = data[i]["category"];
+      if (
+        data[i]["price"] <= max_price &&
+        data[i]["price"] >= min_price &&
+        data[i]["velayat"].indexOf(vel) > -1 &&
+        data[i]["category"].indexOf(cat) > -1
+      ) {
+        let item_content =
+          `<div id=` +
+          data[i]["id"] +
+          ` style='background-color: #fff3d9;border:1px solid black;margin-bottom:20px;border-radius:5px;padding:5px;height:200px;text-size:16px; overflow:hidden'> <li style='text-align:center'>
+        <img src=` +
+          data[i]["pic1"] +
+          ` class=` +
+          data[i]["id"] +
+          ` style='float:left; height:200px;'>
+        <a class='btn btn-primary' href='{% url 'add_to_favourites_product'%}/` +
+          data[i]["id"] +
+          `' style='float:right'>Halanlaryma gos </a>
         
-        <div class=`+data[i]['id']+` style='display:none'>
+        <div class=` +
+          data[i]["id"] +
+          ` style='display:none'>
         <div class='slideshow-container'>
 
-<div class='fade `+data[i]['id']+`'>
+<div class='fade ` +
+          data[i]["id"] +
+          `'>
   <div class='numbertext'>1 / 3</div>
-  <img src="`+data[i]['pic1']+`" class='img'>
+  <img src="` +
+          data[i]["pic1"] +
+          `" class='img'>
 </div>
 <div id="myModal" class="modal">
 
@@ -218,18 +286,30 @@ function showItemsFiltered() {//Default grid to show all items on page load in
   <div id="caption"></div>
 </div>
 
-<div class="fade `+data[i]['id']+`" style='display:none'>
+<div class="fade ` +
+          data[i]["id"] +
+          `" style='display:none'>
   <div class='numbertext'>2 / 3</div>
-  <img src="`+data[i]['pic2']+`" class='img'>
+  <img src="` +
+          data[i]["pic2"] +
+          `" class='img'>
 </div>
 
-<div class="fade `+data[i]['id']+`"style='display:none'>
+<div class="fade ` +
+          data[i]["id"] +
+          `"style='display:none'>
   <div class='numbertext'>3 / 3</div>
-  <img src="`+data[i]['pic3']+`" class='img'>
+  <img src="` +
+          data[i]["pic3"] +
+          `" class='img'>
 </div>
 
-<a class='prev' onclick="plusSlides2(`+data[i]['id']+`,-1)">&#10094;</a>
-<a class='next' style='background-color:black' onclick="plusSlides2(`+data[i]['id']+`,1)">&#10095;</a>
+<a class='prev' onclick="plusSlides2(` +
+          data[i]["id"] +
+          `,-1)">&#10094;</a>
+<a class='next' style='background-color:black' onclick="plusSlides2(` +
+          data[i]["id"] +
+          `,1)">&#10095;</a>
 
 </div>
 <br>
@@ -241,36 +321,69 @@ function showItemsFiltered() {//Default grid to show all items on page load in
 </div>
         
         </div>
-        <h3>Ady: `+data[i]['name']+`</h3>
-        <h4>Bahasy: `+data[i]['price']+` manat</h4>
-        <h5>Kategoriyasy: `+categor+`</h5>
-        <h6>Maglumat: `+data[i]['about']+`</h6>
+        <h3>Ady: ` +
+          data[i]["name"] +
+          `</h3>
+        <h4>Bahasy: ` +
+          data[i]["price"] +
+          ` manat</h4>
+        <h5>Kategoriyasy: ` +
+          categor +
+          `</h5>
+        <h6>Maglumat: ` +
+          data[i]["about"] +
+          `</h6>
         <hr>
-        <h6>`+data[i]['market_name']+`   (`+data[i]['number']+`)   (`+data[i]['market_code']+`)</h6>
+        <h6>` +
+          data[i]["market_name"] +
+          `   (` +
+          data[i]["number"] +
+          `)   (` +
+          data[i]["market_code"] +
+          `)</h6>
         </div>
         </li>
-        <button id='button' class='button `+data[i]['id']+`' style='border-radius:10px; height:30px; line-height:0px;margin:auto; margin-top:-10px; margin-bottom:20px; width:80%;' onclick='uytget(`+data[i]['id']+`)'>Doly gorkez</button>        
-`
-            $(".all_products").append(item_content);//Display in grid
-        }
+        <button id='button' class='button ` +
+          data[i]["id"] +
+          `' style='border-radius:10px; height:30px; line-height:0px;margin:auto; margin-top:-10px; margin-bottom:20px; width:80%;' onclick='uytget(` +
+          data[i]["id"] +
+          `)'>Doly gorkez</button>        
+`;
+        $(".all_products").append(item_content); //Display in grid
+      }
     }
-}
+  }
 
-
-function showAllItems() {//Default grid to show all items on page load in
+  function showAllItems() {
+    //Default grid to show all items on page load in
     $(".all_products").empty();
     for (let i = 0; i < data.length; i++) {
-        categor = data[i]['category']
-        let item_content = `<div id=`+data[i]['id']+` style='border:1px solid black;margin-bottom:20px;border-radius:5px;padding:5px;height:200px;text-size:16px; overflow:hidden'> <li style='text-align:center'>
-        <img src=`+data[i]['pic1']+` class=`+data[i]['id']+` style='float:left;height:200px;'>
-          <a class='btn btn-primary' href='{% url 'add_to_favourites_product'%}?id=`+data[i]['id']+`' style='float:right'>Halanlaryma gos </a>
+      categor = data[i]["category"];
+      let item_content =
+        `<div id=` +
+        data[i]["id"] +
+        ` style='background-color: #fff3d9;border:1px solid black;margin-bottom:20px;border-radius:5px;padding:5px;height:200px;text-size:16px; overflow:hidden'> <li style='text-align:center'>
+        <img src=` +
+        data[i]["pic1"] +
+        ` class=` +
+        data[i]["id"] +
+        ` style='float:left;height:200px;'>
+          <a class='btn btn-primary' href='{% url 'add_to_favourites_product'%}?id=` +
+        data[i]["id"] +
+        `' style='float:right'>Halanlaryma gos </a>
          
-        <div class=`+data[i]['id']+` style='display:none'>
+        <div class=` +
+        data[i]["id"] +
+        ` style='display:none'>
         <div class='slideshow-container'>
 
-<div class='fade `+data[i]['id']+`'>
+<div class='fade ` +
+        data[i]["id"] +
+        `'>
   <div class='numbertext'>1 / 3</div>
-  <img src="`+data[i]['pic1']+`" class='img'>
+  <img src="` +
+        data[i]["pic1"] +
+        `" class='img'>
 </div>
 <div id="myModal" class="modal">
 
@@ -281,18 +394,30 @@ function showAllItems() {//Default grid to show all items on page load in
   <div id="caption"></div>
 </div>
 
-<div class="fade `+data[i]['id']+`" style='display:none'>
+<div class="fade ` +
+        data[i]["id"] +
+        `" style='display:none'>
   <div class='numbertext'>2 / 3</div>
-  <img src="`+data[i]['pic2']+`" class='img'>
+  <img src="` +
+        data[i]["pic2"] +
+        `" class='img'>
 </div>
 
-<div class="fade `+data[i]['id']+`"style='display:none'>
+<div class="fade ` +
+        data[i]["id"] +
+        `"style='display:none'>
   <div class='numbertext'>3 / 3</div>
-  <img src="`+data[i]['pic3']+`" class='img'>
+  <img src="` +
+        data[i]["pic3"] +
+        `" class='img'>
 </div>
 
-<a class='prev' onclick="plusSlides2(`+data[i]['id']+`,-1)">&#10094;</a>
-<a class='next' style='background-color:black' onclick="plusSlides2(`+data[i]['id']+`,1)">&#10095;</a>
+<a class='prev' onclick="plusSlides2(` +
+        data[i]["id"] +
+        `,-1)">&#10094;</a>
+<a class='next' style='background-color:black' onclick="plusSlides2(` +
+        data[i]["id"] +
+        `,1)">&#10095;</a>
 
 </div>
 <br>
@@ -304,41 +429,71 @@ function showAllItems() {//Default grid to show all items on page load in
 </div>
         
         </div>
-        <h3>Ady: `+data[i]['name']+`</h3>
-        <h4>Bahasy: `+data[i]['price']+` manat</h4>
-        <h5>Kategoriyasy: `+categor+`</h5>
-        <h5>Maglumat: `+data[i]['about']+`</h5>
-        <h5>Goşulan wagty: `+data[i]['date']+`</h5>
+        <h3>Ady: ` +
+        data[i]["name"] +
+        `</h3>
+        <h4>Bahasy: ` +
+        data[i]["price"] +
+        ` manat</h4>
+        <h5>Kategoriyasy: ` +
+        categor +
+        `</h5>
+        <h5>Maglumat: ` +
+        data[i]["about"] +
+        `</h5>
+        <h5>Goşulan wagty: ` +
+        data[i]["date"] +
+        `</h5>
         <hr>
-        <h6>`+data[i]['market_name']+`   (`+data[i]['number']+`)   (`+data[i]['market_code']+`)</h6>
+        <h6>` +
+        data[i]["market_name"] +
+        `   (` +
+        data[i]["number"] +
+        `)   (` +
+        data[i]["market_code"] +
+        `)</h6>
         </div>
         </li>
-        <button id='button' class='button `+data[i]['id']+`' style='border-radius:10px; height:30px; line-height:0px;margin:auto; margin-top:-10px; margin-bottom:20px; width:80%;' onclick='uytget(`+data[i]['id']+`)'>Doly gorkez</button>        
-`
+        <button id='button' class='button ` +
+        data[i]["id"] +
+        `' style='border-radius:10px; height:30px; line-height:0px;margin:auto; margin-top:-10px; margin-bottom:20px; width:80%;' onclick='uytget(` +
+        data[i]["id"] +
+        `)'>Doly gorkez</button>        
+`;
 
-
-
-        $(".all_products").append(item_content);
+      $(".all_products").append(item_content);
     }
-}
-
+  }
 </script>
 
 <script>
-
-function halanlarym() {//Default grid to show all items on page load in
+  function halanlarym() {
+    //Default grid to show all items on page load in
     $(".all_products").empty();
     for (let i = 0; i < favourites.length; i++) {
-        categor = favourites[i]['category']
-        let item_content = `<div id=`+favourites[i]['id']+` style='border:1px solid black;margin-bottom:20px;border-radius:5px;padding:5px;height:200px;text-size:16px; overflow:hidden'> <li style='text-align:center'>
-        <img src=`+favourites[i]['pic1']+` class=`+favourites[i]['id']+` style='float:left;height:200px;'>
+      categor = favourites[i]["category"];
+      let item_content =
+        `<div id=` +
+        favourites[i]["id"] +
+        ` style='background-color: #fff3d9;border:1px solid black;margin-bottom:20px;border-radius:5px;padding:5px;height:200px;text-size:16px; overflow:hidden'> <li style='text-align:center'>
+        <img src=` +
+        favourites[i]["pic1"] +
+        ` class=` +
+        favourites[i]["id"] +
+        ` style='float:left;height:200px;'>
         
-        <div class=`+favourites[i]['id']+` style='display:none'>
+        <div class=` +
+        favourites[i]["id"] +
+        ` style='display:none'>
         <div class='slideshow-container'>
 
-<div class='fade `+favourites[i]['id']+`'>
+<div class='fade ` +
+        favourites[i]["id"] +
+        `'>
   <div class='numbertext'>1 / 3</div>
-  <img src="`+favourites[i]['pic1']+`" class='img'>
+  <img src="` +
+        favourites[i]["pic1"] +
+        `" class='img'>
 </div>
 <div id="myModal" class="modal">
 
@@ -349,18 +504,30 @@ function halanlarym() {//Default grid to show all items on page load in
   <div id="caption"></div>
 </div>
 
-<div class="fade `+favourites[i]['id']+`" style='display:none'>
+<div class="fade ` +
+        favourites[i]["id"] +
+        `" style='display:none'>
   <div class='numbertext'>2 / 3</div>
-  <img src="`+favourites[i]['pic2']+`" class='img'>
+  <img src="` +
+        favourites[i]["pic2"] +
+        `" class='img'>
 </div>
 
-<div class="fade `+favourites[i]['id']+`"style='display:none'>
+<div class="fade ` +
+        favourites[i]["id"] +
+        `"style='display:none'>
   <div class='numbertext'>3 / 3</div>
-  <img src="`+favourites[i]['pic3']+`" class='img'>
+  <img src="` +
+        favourites[i]["pic3"] +
+        `" class='img'>
 </div>
 
-<a class='prev' onclick="plusSlides2(`+favourites[i]['id']+`,-1)">&#10094;</a>
-<a class='next' style='background-color:black' onclick="plusSlides2(`+favourites[i]['id']+`,1)">&#10095;</a>
+<a class='prev' onclick="plusSlides2(` +
+        favourites[i]["id"] +
+        `,-1)">&#10094;</a>
+<a class='next' style='background-color:black' onclick="plusSlides2(` +
+        favourites[i]["id"] +
+        `,1)">&#10095;</a>
 
 </div>
 <br>
@@ -372,24 +539,41 @@ function halanlarym() {//Default grid to show all items on page load in
 </div>
         
         </div>
-        <h3>Ady: `+favourites[i]['name']+`</h3>
-        <h4>Bahasy: `+favourites[i]['price']+` manat</h4>
-        <h5>Kategoriyasy: `+categor+`</h5>
-        <h5>Maglumat: `+favourites[i]['about']+`</h5>
-        <h5>Goşulan wagty: `+favourites[i]['date']+`</h5>
+        <h3>Ady: ` +
+        favourites[i]["name"] +
+        `</h3>
+        <h4>Bahasy: ` +
+        favourites[i]["price"] +
+        ` manat</h4>
+        <h5>Kategoriyasy: ` +
+        categor +
+        `</h5>
+        <h5>Maglumat: ` +
+        favourites[i]["about"] +
+        `</h5>
+        <h5>Goşulan wagty: ` +
+        favourites[i]["date"] +
+        `</h5>
         <hr>
-        <h6>`+favourites[i]['market_name']+`   (`+favourites[i]['number']+`)   (`+favourites[i]['market_code']+`)</h6>
+        <h6>` +
+        favourites[i]["market_name"] +
+        `   (` +
+        favourites[i]["number"] +
+        `)   (` +
+        favourites[i]["market_code"] +
+        `)</h6>
         </div>
         </li>
-        <button id='button' class='button `+favourites[i]['id']+`' style='border-radius:10px; height:30px; line-height:0px;margin:auto; margin-top:-10px; margin-bottom:20px; width:80%;' onclick='uytget(`+data[i]['id']+`)'>Doly gorkez</button>        
-`
+        <button id='button' class='button ` +
+        favourites[i]["id"] +
+        `' style='border-radius:10px; height:30px; line-height:0px;margin:auto; margin-top:-10px; margin-bottom:20px; width:80%;' onclick='uytget(` +
+        data[i]["id"] +
+        `)'>Doly gorkez</button>        
+`;
 
-
-
-        $(".all_products").append(item_content);
+      $(".all_products").append(item_content);
     }
-}
-
+  }
 </script>
 
 {% endblock content %}

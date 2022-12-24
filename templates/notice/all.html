@@ -7,12 +7,12 @@
 
 	{% for notice in content.object_list %}
 
-        <div id="{{notice.pk}}" style='border:1px solid black;background-color: #ddddfd;padding:10px;margin:20px;margin-top:-5px; border-radius:20px;height:200px;text-size:16px; overflow:hidden'>
+        <div id="{{notice.pk}}" style='border:1px solid black;background-color: #fff3d9;padding:10px;margin:20px;margin-top:-5px; border-radius:20px;height:200px;text-size:16px; overflow:hidden'>
         <li>
         <img src="{{notice.image.url}}" width=300px height=200px style='float:right;height: 200px;'>
         <h6>{{ notice.date }}</h6>
         <p>{{ notice.body }}</p>
-        <a href="{{notice.link}}">{{ notice.link }}</a><br><br>";
+        <a href="{{notice.link}}">{{ notice.link }}</a><br><br>
         <ul style=' margin-top:110px'>
     
     {% for comment in notice.comments.all %}
@@ -23,7 +23,7 @@
               <a href="{% url 'delete_comment' comment.pk request.path|spliturl %}">Teswiri poz</a>
             {% endif %}
         <h4 style='padding:5px;margin-bottom:-15px'>{{comment.user}}</h4>
-        <p style='padding:5px; margin-bottom:0px'>{{comment.body}}</p>";
+        <p style='padding:5px; margin-bottom:0px'>{{comment.body}}</p>
         <div style='display:flex;flex-direction:column;justify-content:right'>
 
         {% for comment_child in comment.replies.all %}

@@ -6,7 +6,7 @@
 
 	{% for notice in user.favorite_notices.all %}
 
-        <div id="{{notice.pk}}" style='border:1px solid black;padding:10px;margin:20px;margin-top:-5px; border-radius:20px;height:200px;text-size:16px; overflow:hidden'>
+        <div id="{{notice.pk}}" style='background-color: #fff3d9;border:1px solid black;padding:10px;margin:20px;margin-top:-5px; border-radius:20px;height:200px;text-size:16px; overflow:hidden'>
         <li>
         <img src="{{notice.notice.image.url}}" width=300px height=200px style='float:right;height: 200px;'>
         <h6>{{ notice.notice.date }}</h6>
