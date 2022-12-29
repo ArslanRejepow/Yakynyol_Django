@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import api_add_word, text, learn_word, learn_word_audio, test_word, learn_dialog, dialog_audio, test_dialog, dialog_test_another, dialog_test_turkmen
-app_name = "api"
+
 urlpatterns = [
     path('', text, name='text'),
     path('learn_word', learn_word, name='learn_word'),
