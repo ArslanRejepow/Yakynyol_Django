@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from api.serializers import AdSerializer, BreakSerializer, CategorySeializer, CommentForNoticeSerializer, DialogSerializer, FavoriteSerializer, LessonSerializer, MarketSerializer, NoticeSerializer, ProductSerializer, TextSerializer, UserSerializer, WordSerializer
 from rest_framework.response import Response
@@ -13,83 +14,110 @@ from users.models import User
 
 # Create your views here.
 
+
 @api_view(('GET',))
 def adsApi(request):
     data = Left_Ad.objects.all().order_by('?')
     serializer = AdSerializer(data, many=True)
     return Response(serializer.data)
 
+
 @api_view(('GET',))
 def breakApi(request):
-	data = Content.objects.all()
-	serializer = BreakSerializer(data, many=True)
-	return Response(serializer.data)
+    data = Content.objects.all()
+    serializer = BreakSerializer(data, many=True)
+    return Response(serializer.data)
 
 
 @api_view(('GET',))
 def wordApi(request):
-	data = Word.objects.all()
-	serializer = WordSerializer(data, many=True)
-	return Response(serializer.data)
+    data = Word.objects.all()
+    serializer = WordSerializer(data, many=True)
+    return Response(serializer.data)
 
 
 @api_view(('GET',))
 def dialogApi(request):
-	data = Dialog.objects.all()
-	serializer = DialogSerializer(data, many=True)
-	return Response(serializer.data)
+    data = Dialog.objects.all()
+    serializer = DialogSerializer(data, many=True)
+    return Response(serializer.data)
 
 
 @api_view(('GET',))
 def textApi(request):
-	data = Text.objects.all()
-	serializer = TextSerializer(data, many=True)
-	return Response(serializer.data)
+    data = Text.objects.all()
+    serializer = TextSerializer(data, many=True)
+    return Response(serializer.data)
+
 
 @api_view(('GET',))
 def categoryApi(request):
-	data = Category.objects.all()
-	serializer = CategorySeializer(data, many=True)
-	return Response(serializer.data)
+    data = Category.objects.all()
+    serializer = CategorySeializer(data, many=True)
+    return Response(serializer.data)
+
 
 @api_view(('GET',))
 def marketApi(request):
-	data = Market.objects.all()
-	serializer = MarketSerializer(data, many=True)
-	return Response(serializer.data)
+    data = Market.objects.all()
+    serializer = MarketSerializer(data, many=True)
+    return Response(serializer.data)
+
 
 @api_view(('GET',))
 def productApi(request):
-	data = Product.objects.all()
-	serializer = ProductSerializer(data, many=True)
-	return Response(serializer.data)
+    data = Product.objects.all()
+    serializer = ProductSerializer(data, many=True)
+    return Response(serializer.data)
+
 
 @api_view(('GET',))
 def noticeApi(request):
-	data = Notice.objects.all()
-	serializer = NoticeSerializer(data, many=True)
-	return Response(serializer.data)
+    data = Notice.objects.all()
+    serializer = NoticeSerializer(data, many=True)
+    return Response(serializer.data)
+
 
 @api_view(('GET',))
 def commentForNoticeApi(request):
-	data = Comment_for_Notice.objects.all()
-	serializer = CommentForNoticeSerializer(data, many=True)
-	return Response(serializer.data)
+    data = Comment_for_Notice.objects.all()
+    serializer = CommentForNoticeSerializer(data, many=True)
+    return Response(serializer.data)
+
 
 @api_view(('GET',))
 def lessonApi(request):
-	data = Lesson.objects.all()
-	serializer = LessonSerializer(data, many=True)
-	return Response(serializer.data)
+    data = Lesson.objects.all()
+    serializer = LessonSerializer(data, many=True)
+    return Response(serializer.data)
+
 
 @api_view(('GET',))
 def favoriteApi(request):
-	data = Favorites.objects.all()
-	serializer = FavoriteSerializer(data, many=True)
-	return Response(serializer.data)
+    data = Favorites.objects.all()
+    serializer = FavoriteSerializer(data, many=True)
+    return Response(serializer.data)
+
 
 @api_view(('GET',))
 def userApi(request):
-	data = User.objects.all()
-	serializer = UserSerializer(data, many=True)
-	return Response(serializer.data)
+    data = User.objects.all()
+    serializer = UserSerializer(data, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['POST',])
+def add_word(request):
+    # print(request.POST)
+    lesson = Lesson.objects.get(name=request.POST.get('lesson_name'))
+    print(request.POST.get('another_lang'))
+    data = {'another_lang': request.POST.get('another_lang'), 'turkmen': request.POST.get('turkmen'), 'description': request.POST.get('description'), 'additional1': request.POST.get(
+        'additional1'), 'additional2': request.POST.get('additional2'), 'additional3': request.POST.get('additional3'), 'lesson': lesson, 'audio_another': request.FILES.get('audio_another'), 'audio_turkmen': request.FILES.get('audio_turkmen')}
+    # print(data)
+    # print(request.FILES)
+    serializer = Word(**data)
+    serializer.save()
+    print(serializer)
+    # serializer.is_valid(raise_exception=True)
+    # serializer.save()
+    return HttpResponse('ok')
