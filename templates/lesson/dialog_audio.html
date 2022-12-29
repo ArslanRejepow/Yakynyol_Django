@@ -1,5 +1,4 @@
-{% extends 'lesson/base.html' %} {% block content %}
-
+{% extends 'lesson/base.html' %} {% block content %} {% load static %}
 <div>
   <h2 style="width: auto; display: inline; float: left; font-size: 30px">
     {{lesson.name}}
@@ -115,7 +114,7 @@
     tet.innerHTML +
     "<div class='message'><img class='avatar-md' src='dist/img/avatars/avatar-female-5.jpg' data-toggle='tooltip' data-placement='top' title='Keith' alt='avatar'><div class='text-main'><div class='text-group'><div class='text' style='cursor:pointer' onclick=playbyid2(" +
     inlisceler2.indexOf(inlisceler[id]) +
-    ")><img src = 'images/playicon.png' width=30 height=30><img src='images/wave.png' style='width:150px; height:30px'></div></div></div>";
+    ")><img src={% static 'wave.png' %} style='width:150px; height:30px'></div></div></div>";
 
   function jogapla() {
     tet.innerHTML =
@@ -137,7 +136,7 @@
       tet.innerHTML +
       "<div class='message'><img class='avatar-md' src='dist/img/avatars/avatar-female-5.jpg' data-toggle='tooltip' data-placement='top' title='Keith' alt='avatar'><div class='text-main'><div class='text-group'><div class='text' style='cursor:pointer' onclick=playbyid2(" +
       inlisceler2.indexOf(inlisceler[id]) +
-      ")><img src = 'images/playicon.png' width=30 height=30><img src='images/wave.png' style='width:150px; height:30px'></div></div></div>";
+      ")><img src={% static 'wave.png' %} style='width:150px; height:30px'></div></div></div>";
     tet.scrollTop = tet.scrollHeight;
   }
 
