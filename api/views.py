@@ -128,7 +128,8 @@ def add_dialog(request):
     # print(request.POST)
     lesson = Lesson.objects.get(name=request.POST.get('lesson_name'))
     print(request.POST.get('another_question_lang'))
-    data = {}
+    data = {'question_another': request.POST.get('question_another'), 'answer_another': request.POST.get('answer_another'), 'question_turkmen': request.POST.get('question_turkmen'), 'answer_turkmen': request.POST.get('answer_turkmen'), 'description': request.POST.get('description'), 'additional1': request.POST.get('additional1'), 'additional2': request.POST.get(
+        'additional2'), 'wrong_text': request.POST.get('wrong_text'), 'lesson': lesson, 'audio_question_another': request.FILES.get('audio_question_another'), 'audio_answer_another': request.FILES.get('audio_answer_another'), 'audio_question_turkmen': request.FILES.get('audio_question_turkmen'), 'audio_answer_turkmen': request.FILES.get('audio_answer_turkmen')}
     # print(data)
     # print(request.FILES)
     serializer = Dialog(**data)
