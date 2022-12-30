@@ -121,3 +121,19 @@ def add_word(request):
     # serializer.is_valid(raise_exception=True)
     # serializer.save()
     return HttpResponse('ok')
+
+
+@api_view(['POST',])
+def add_dialog(request):
+    # print(request.POST)
+    lesson = Lesson.objects.get(name=request.POST.get('lesson_name'))
+    print(request.POST.get('another_question_lang'))
+    data = {}
+    # print(data)
+    # print(request.FILES)
+    serializer = Dialog(**data)
+    serializer.save()
+    print(serializer)
+    # serializer.is_valid(raise_exception=True)
+    # serializer.save()
+    return HttpResponse('ok')
