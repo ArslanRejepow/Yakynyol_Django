@@ -11,5 +11,4 @@ urlpatterns = [
     path('test_dialog', test_dialog, name='test_dialog'),
     path('dialog_test_another', dialog_test_another, name='dialog_test_another'),
     path('dialog_test_turkmen', dialog_test_turkmen, name='dialog_test_turkmen'),
-    path('api_add_word', api_add_word,)
 ]

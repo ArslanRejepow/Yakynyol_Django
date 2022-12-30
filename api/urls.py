@@ -1,6 +1,6 @@
 from django.urls import path
 
-from api.views import add_word, adsApi, breakApi, categoryApi, commentForNoticeApi, dialogApi, favoriteApi, lessonApi, marketApi, noticeApi, productApi, textApi, userApi, wordApi
+from api.views import add_dialog, add_word, adsApi, breakApi, categoryApi, commentForNoticeApi, dialogApi, favoriteApi, lessonApi, marketApi, noticeApi, productApi, textApi, userApi, wordApi
 
 urlpatterns = [
     path('ads', adsApi, name='ads'),
@@ -16,5 +16,6 @@ urlpatterns = [
     path('lesson', lessonApi, name='api_lesson'),
     path('favorite', favoriteApi, name='api_favorite'),
     path('user', userApi, name='api_user'),
-    path('add_word', add_word)
+    path('add_word', add_word),
+    path('add_dialog', add_dialog)
 ]
